@@ -8,11 +8,10 @@
 
 主要记录一下博主不务正业的计算机折腾过程，还有一些博主的碎碎念OvO
 
-在此之前经历过两个域名，用过其他的的blog程序，现在呢，就用hexo来生成文章啦，样式呢当然还是会改动啦
+在此之前经历过两个域名，用过其他的的blog程序，现在呢，就用github的api实现
 
  + 推荐浏览器IE 9+,Chrome 59+,Firefox 54+。
- + 通过Atom订阅[/atom.xml](/atom.xml) (不一定完整)
- + 使用hexo生成器，simplecho主题，使用vue.js重新构建，gitment评论系统。
+ + 使用React和marked库构建，样式来自simplecho。
  + 博客遵循、采用[“署名-非商业性使用-相同方式共享 4.0 国际协议”](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 
