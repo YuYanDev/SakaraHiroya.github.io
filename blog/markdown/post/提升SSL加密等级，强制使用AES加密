@@ -1,0 +1,19 @@
+2015-06-27 01:25:00
+---
+
+仅仅把SSL证书配置，安全措施根本不够，如果去专业网站检测，也就是C级而已，所以我们应该提升网站的加密措施
+第一项：强制使用AES128或AES256加密算法（这些信息可以使用chrome浏览器查看，点击绿锁即可）
+
+1：老规矩 `nano httpd-ssl.conf` 去删除注释
+
+2：对照图片修改（需要默认128就128在前）
+![1](/img/3319305556.jpg)
+
+3：关闭 SSL v3 （据说是因为harker可以监听数据）
+`SSLProtocol all -SSLv2`改为
+`SSLProtocol all -SSLv2 -SSLv3`
+
+4：线上工具检测，这里推荐两个，
+一个是最权威的 Qualys SSL Labs https://www.ssllabs.com/ssltest/
+一个是Globalsign的，这个能提供修复建议https://sslcheck.globalsign.com/cn
+<!--more-->
