@@ -1,0 +1,83 @@
+
+2015-08-30 14:07:00
+---
+
+终于弄好了
+----看了起司博客的这篇文章[http://www.tntsec.com/487.html][1]后开始折腾
+
+在窝的vps上，起司博客的文章并不适用，执行完成后nginx还是老版本，网页访问返回信息也是老版本的nginx-1.8.0，无奈自己研究……
+
+终于在第5遍的时候，折腾成功了！
+`注意这是全新安装`使用纯净系统（当然你把nginx和openssl卸载干净也可以）。
+另外HTTP/2需要一张SSL证书，推荐 let's encrypt。
+<!--more-->
+1 先安装必要的工具，免得过会儿麻烦
+```
+yum install gcc patch pcre-devel zlib-devel
+```
+2 安装openssl-1.0.2d这是所需最低版本
+```
+cd /usr/local/src
+wget http://www.openssl.org/source/openssl-1.0.2d.tar.gz
+tar -zxvf openssl-1.0.2d.tar.gz
+cd openssl-1.0.2d
+./config #差什么装什么
+make
+make install
+```
+3 安装nginx
+```cd /usr/local
+wget http://nginx.org/download/nginx-1.9.3.tar.gz
+tar -zxvf nginx-1.9.3.tar.gz
+cd nginx-1.9.3.tar.gz
+wget http://nginx.org/patches/http2/patch.http2.txt
+patch -p1 --dry-run < patch.http2.txt
+patch -p1 < patch.http2.txt
+./configure --with-http_ssl_module
+            --with-http_v2_module
+            --with-debug
+            --with-openssl=/usr/local/src/openssl-1.0.2d
+make
+make install
+```
+
+结束时最好保存个截图
+4 启动
+```
+cd /usr/local/nginx/sbin
+./nginx
+```
+
+5 配置，建议参考[起司博客的文章][2]
+重启nginx，kill进程，然后再./nginx（可以去网上找脚本，<del>博主太懒了</del>）
+6 检验
+去github把这个程序拖下来[https://github.com/rauchg/chrome-spdy-indicator][3]
+解压，在chrome的程序拓展中，进入开发者模式，加载解压出来的文件夹，刷新网页就可以看到闪电标志的HTTP/2，如图所示
+
+折腾日志：
+
+
+远没想象中的简单，第一次，
+…编译安装openssl-1.0.2d `[OK]`
+…编译nginx-1.9.3 `[FAILED]` 缺少pcre-devel，好吧 yum一下
+…再次编译安装nginx-1.9.3 `[SUCCESS]` 但安装到了一个神秘的地方，连find也找不到，history更是无解………失败
+
+第二次，备份文件，重置系统，全新安装！
+…编译安装openssl-1.0.2d `[OK]`
+…编译nginx-1.9.3 `[FAILED]` 缺少pcre-devel，gcc，gzip等等一大堆，窝忍了，yum一下
+…再次编译安装nginx-1.9.3 `[SUCCESS]`，把输出截图了下来，配置文件弄起来，可以用service nginx ……的命令了，虽然nginx -v还是找不到
+…书写conf文件，incloud到nginx.conf里，重启……`[FAILED]`
+居然说读不懂配置文件？！？，然而并没有什么错误…………估计是缺了什么东西，或者编译时出bug，毕竟是开发版，orz
+
+第三次，按照起司博客yum安装lnmp的方法安装了lnmp，再进行升级，[FAILED]还是老版本……
+
+第四次，发现没有`make install`步骤，orz重新来……但是，还是[FAILED]了，无法启用http2……
+
+第五次，按照标志编译安装方法，复制到tty上，成功了！
+
+失败之处在于，iOS上的Serverauditor软件排版bug，导致未成功加载模块，导致编译失败，orz
+
+
+  [1]: http://www.tntsec.com/487.html
+  [2]: http://www.tntsec.com/487.html
+  [3]: https://github.com/rauchg/chrome-spdy-indicator
