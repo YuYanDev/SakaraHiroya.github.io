@@ -1,7 +1,7 @@
 
 2016-07-16 15:54:00
 ---
-![](/img/caddy.jpg)
+![](/static/img/caddy.jpg)
 Caddy Server是一个用golang写的优秀web server，国内用户相对偏少，但我非常喜欢这个东西，所以来做个简易的手册。
 它有许多nginx和apache没有的功能，不仅具有特色而且非常实用，比如简洁的conf，http/2，markdown渲染等等
 要说它的缺点，就是效率不如前两者。

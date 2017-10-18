@@ -13,12 +13,12 @@
 // 分割线，首页不放图o(*////▽////*)q
 <!--more-->
 
-![](/img/npm-check-2.png)
+![](/static/img/npm-check-2.png)
 
 
 如需升级工程下的依赖的话，在工程目录下执行`npm-check -u`，即可检查出可以升级的组件，空格选择，回车开始升级
 
-![](/img/npm-check-1.png)
+![](/static/img/npm-check-1.png)
 
 如果是升级诸如脚手架之类的全局组件，执行`sudo npm-check -u -g`，使用同理。
 

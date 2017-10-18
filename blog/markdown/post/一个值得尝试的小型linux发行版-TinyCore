@@ -4,7 +4,7 @@
 TinyCore，一个有名的linux系统，以体积小而著称，在体验过着这个可爱的系统后，我爱上了它，但我们彼此之间还需要磨合。
 
 地址：[http://www.tinycorelinux.net/](http://www.tinycorelinux.net/)
-![](/img/tinycore.png)
+![](/static/img/tinycore.png)
 作者提供了三种版本的 Core，TinyCore，CorePlus
 
 个人呢，更倾向于core版，非常轻量，无图形界面（果然还是Terminal最有爱）加载迅速（512mb,hdd虚拟机5s内完成启动）

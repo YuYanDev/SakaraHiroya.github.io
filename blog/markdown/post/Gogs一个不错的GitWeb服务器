@@ -1,7 +1,7 @@
 
 2016-07-13 23:24:00
 ---
-![](/img/gogs.png)
+![](/static/img/gogs.png)
 网址 ：[htttps://gogs.io](https://gogs.io)
 Gogs作为一个Git服务器，就目前来说已经足够成熟了。它简单易用，极少的bug，所以特别适合小公司及个人使用。
 相比较Gitlab来说，这个更加轻量，所以我们可以使用树莓派，废旧电脑，或者一台不低于512mb内存的vps上搭一个

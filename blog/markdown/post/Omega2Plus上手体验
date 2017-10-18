@@ -10,18 +10,18 @@ Omega2是onion公司搞出的一款超迷你的IOT设备，体积非常迷你，
 
 先来几张低清有码
 
-![](/img/Omega2-1.JPG)
+![](/static/img/Omega2-1.JPG)
 
 <!--more-->
-![](/img/Omega2-2.JPG)
-![](/img/Omega2-3.JPG)
-![](/img/Omega2-4.jpg)
+![](/static/img/Omega2-2.JPG)
+![](/static/img/Omega2-3.JPG)
+![](/static/img/Omega2-4.jpg)
 
 这plus拥有一颗580MHz的处理器128MB的内存，32MB的储存，但支持TF卡，自带wifi。
 
 官方推出了类似积木的dock扩展，然而价格较贵，不推荐。
 15个脚的GPIO接口，可以各种折腾，官方提供了接口图。
-![](/img/Omega2GPIO.png)
+![](/static/img/Omega2GPIO.png)
 
 图片源自onion
 
