@@ -8,6 +8,68 @@
     <meta name="description" content="みんなで実现の物语 - μ's"/>
     <meta name="keywords" content="JavaScript,Blog,Github,Node.js,Tech"/>
     <script type="text/javascript">var targetProtocol = "https:";if (window.location.protocol != targetProtocol){window.location.href = targetProtocol +window.location.href.substring(window.location.protocol.length);}</script>
+    <script type="text/javascript">
+      var Sys = {};
+      var userAgentBool = '0';
+      var ua = navigator.userAgent.toLowerCase();
+      if (window.ActiveXObject) {
+        Sys.ie = ua.match(/msie ([\d.]+)/)[1]
+      } else {
+        if (document.getBoxObjectFor) {
+          Sys.firefox = ua.match(/firefox\/([\d.]+)/)[1]
+        } else {
+          if (window.MessageEvent && !document.getBoxObjectFor) {
+            Sys.chrome = ua.match(/chrome\/([\d.]+)/)[1]
+          } else {
+            if (window.opera) {
+              Sys.opera = ua.match(/opera.([\d.]+)/)[1]
+            } else {
+              if (window.openDatabase) {
+                Sys.safari = ua.match(/version\/([\d.]+)/)[1];
+              }
+            }
+          }
+        }
+      }
+  
+      if (Sys.ie) {
+        var ieVersion = parseInt(Sys.ie.substr(0, 1));
+        if (ieVersion == 1) {
+          userAgentBool = '1'
+        } else {
+          if (ieVersion == 9) {
+            userAgentBool = '1'
+          }
+        }
+      }
+      if (Sys.firefox) {
+        var firefoxVersion = parseInt(Sys.firefox.substr(0, 2));
+        if (firefoxVersion >= 52) {
+          userAgentBool = '1'
+        }
+      }
+      if (Sys.chrome) {
+        var chromeVersion = parseInt(Sys.chrome.substr(0, 2));
+        if (chromeVersion >= 49) {
+          userAgentBool = '1'
+        }
+      }
+      if (Sys.opera) {
+        var operaVersion = parseInt(Sys.opera.substr(0, 2));
+        if (operaVersion >= 44) {
+          userAgentBool = '1'
+        }
+      };
+      if (Sys.safari) {
+        var safariVersion = parseInt(Sys.safari.substr(0, 1));
+        if (safariVersion == 1) {
+          userAgentBool = '1'
+        }
+      }
+      if (userAgentBool == '0') {
+        window.location.href="/Support/BrowserNotSupport.html"
+      }
+    </script>
   </head>
   <body> 
     <div id="app"></div>
