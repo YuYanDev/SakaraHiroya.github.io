@@ -19,9 +19,9 @@ date: 2016-01-10 05:53:26
 
 [shy泠的博客](https://shyling.com) (SSL ON)
 
-[響き喵~](https://nekoyu.cc/) (SSL ON)
+[響き喵~](https://yuuno.cc/) (SSL ON)
 
-[AD's Blog](https://imjad.cn) (SSL ON)
+[猫与向日葵 ](https://imjad.cn) (SSL ON)
 
 [0xBBC](https://blog.0xbbc.com/) (SSL ON)
 
@@ -29,11 +29,11 @@ date: 2016-01-10 05:53:26
 
 [ProfessorJohnny](https://moe.pe) (SSL ON)
 
-[枯龙吟的博客](https://briskblog.eu.org) (SSL ON)
+[Archeb](https://qwq.moe) (SSL ON)
 
 [Tsez's Blog](https://blog.tse.moe) (SSL ON)
 
-[Corps Said](https://corps.set-fire.com) (SSL ON)
+[Corps Said](https://www.set-fire.com) (SSL ON)
 
 [白泠酱](https://youon.moe) (SSL ON)
 
@@ -55,15 +55,16 @@ date: 2016-01-10 05:53:26
 
 [Dsus4's](https://diary.moe) (SSL ON)
 
+[儒沫杂记]( http://www.eumoss.cn/)
+
 [张大侠](http://itsay.tech)
 
-[夏至](http://howmoe.com)
+[Shiina](http://howmoe.com)
 
 [ZFirst's Blog](https://erhuo.co) (SSL ON)
 
 [Ghost](https://ghostblog.info) (SSL ON)
 
-[Yanhao's blog](http://www.yanhao.site)
 
 [本子桐](http://www.targetlocked.xyz)
 
