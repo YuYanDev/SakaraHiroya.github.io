@@ -9,11 +9,11 @@ date: 2016-01-10 05:53:26
 
 主要记录一下博主不务正业的计算机折腾过程，还有一些博主的碎碎念OvO
 
-在此之前经历过两个域名，用过其他的的blog程序，现在呢，就用hexo来生成文章啦，样式呢当然还是会改动啦
+在此之前经历过两个域名，用过其他的的blog程序，现在呢，就造了个轮子，主要用的就是React啦，样式呢当然还是会改动啦
 
- + 推荐浏览器IE 9+,Chrome 59+,Firefox 54+。
- + 通过Atom订阅[/atom.xml](/atom.xml) (不一定完整)
- + 使用hexo生成器，simplecho主题，使用vue.js重新构建，gitment评论系统。
+ + 推荐浏览器Edge 13+,Chrome 45+,Firefox 54+。
+ + <del>通过Atom订阅[/atom.xml](/atom.xml) (不一定完整)</del>暂时缺失
+ + 使用Github Api，bulma样式，使用React.js重新构建，disqus评论系统。
  + 博客遵循、采用[“署名-非商业性使用-相同方式共享 4.0 国际协议”](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 
