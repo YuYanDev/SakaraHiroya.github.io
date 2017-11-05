@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Visual Studio Code初体验 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今年早期的时候，巨硬发布了这款编辑器，跨平台，支持多种编程语言，据说未来还会提供插件支持（像Atom一样）无奈系统装的是32bit的，无缘Atom（主要是懒得折腾）一开始是打算Sublime Text的，后来有个小伙伴推荐了这个编辑器，（据说更专业，看起来也是，嗯 ∑(O_O;) ）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Visual Studio Code初体验">
+<meta property="og:url" content="https://emiria.io/post/VSC/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="今年早期的时候，巨硬发布了这款编辑器，跨平台，支持多种编程语言，据说未来还会提供插件支持（像Atom一样）无奈系统装的是32bit的，无缘Atom（主要是懒得折腾）一开始是打算Sublime Text的，后来有个小伙伴推荐了这个编辑器，（据说更专业，看起来也是，嗯 ∑(O_O;) ）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Visual Studio Code初体验">
+<meta name="twitter:description" content="今年早期的时候，巨硬发布了这款编辑器，跨平台，支持多种编程语言，据说未来还会提供插件支持（像Atom一样）无奈系统装的是32bit的，无缘Atom（主要是懒得折腾）一开始是打算Sublime Text的，后来有个小伙伴推荐了这个编辑器，（据说更专业，看起来也是，嗯 ∑(O_O;) ）">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-VSC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/VSC/" class="article-date">
+  <time datetime="2015-10-04T06:30:00.000Z" itemprop="datePublished">2015-10-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Visual Studio Code初体验
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!--markdown-->今年早期的时候，<del>巨硬</del>发布了这款编辑器，跨平台，支持多种编程语言，据说未来还会提供插件支持（像Atom一样）无奈系统装的是32bit的，无缘Atom（<del>主要是懒得折腾</del>）<br>一开始是打算Sublime Text的，后来有个小伙伴推荐了这个编辑器，（据说更专业，看起来也是，嗯 ∑(O_O;) ）<br><a id="more"></a>
+<p>Linux通用安装方式(Ubuntu除外)<br>下载地址：<a href="https://www.visualstudio.com/products/code-vs" target="_blank" rel="external">https://www.visualstudio.com/products/code-vs</a><br>挑自己的系统下载，挺小的<br>下载完后，mv到你想放的地方，然后unzip，<br>点击.code来启动<br>最好把这个code给 ln -s到/usr/local/bin/code里，方便启动<br>当然你也可以 code 文件位置 来直接编辑文件<br>最好chmod +x code一下</p>
+<p>Ubuntu百度一下一堆，非要另类去搞make……</p>
+<p>第一次使用这种专业编辑器，感觉太好用了，自己补全，自动排版，还具有很多提示！<del>以前用nano写东西好煞笔呀</del><br>如果你wget一下tris.pw当中的网页看看，代码排版一团糟，web软件的conf也是经常因排版问题不识别……有时候还会掉括号（多层负载均衡的的配置文件还要一个个的排错简直要疯掉……）<br>wget命令<code>wget -m -e robots=off -U &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1.6) Firefox/3.5.6&quot; &quot;http://网站域名/&quot;</code>手机端改下UI即可（这个可以用来镜像静态站点，并且可以无视robots.txt)</p>
+<p>PS:关于debian没有预置intel网卡驱动的解决方案<br>起初尝试的方案:去Intel官网寻找相关内容，得到了一下两个页面<br><a href="http://www.intel.com/support/cn/wireless/wlan/sb/cs-034398.htm?wapkw=iwlwifi%20-1000-5&amp;_ga=1.176836653.927392567.1439982352" target="_blank" rel="external">http://www.intel.com/support/cn/wireless/wlan/sb/cs-034398.htm?wapkw=iwlwifi+-1000-5&amp;_ga=1.176836653.927392567.1439982352</a><br><a href="https://wireless.wiki.kernel.org/en/users/Drivers/iwlwifi" target="_blank" rel="external">https://wireless.wiki.kernel.org/en/users/Drivers/iwlwifi</a><br>高高兴兴的去下载，然后只得到了5个当中的2个，<code>当然，这两个页面可能对你的机器有用</code><br>接下来去wiki上找找，得到方案<br><code>sudo apt-get install firmware-iwlwifi</code><br><code>sudo modprobe -r iwlwifi ; modprobe iwlwifi</code><br>收工</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/VSC/" data-id="cj7alywlm000q6s7aez7138p0" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/VSC/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/ghost-play/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ghost博客新玩法&amp;迁移,备份教程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/Jessie/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hi Jessie</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/VSC/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

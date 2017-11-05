@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Caddy Server简易使用手册 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Caddy Server是一个用golang写的优秀web server，国内用户相对偏少，但我非常喜欢这个东西，所以来做个简易的手册。它有许多nginx和apache没有的功能，不仅具有特色而且非常实用，比如简洁的conf，http/2，markdown渲染等等要说它的缺点，就是效率不如前两者。 本文会以下几块方面来介绍此服务器  caddy安装及配置文件基本写法 基本组成模块 传统php+my">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Caddy Server简易使用手册">
+<meta property="og:url" content="https://emiria.io/post/CaddyServer/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="Caddy Server是一个用golang写的优秀web server，国内用户相对偏少，但我非常喜欢这个东西，所以来做个简易的手册。它有许多nginx和apache没有的功能，不仅具有特色而且非常实用，比如简洁的conf，http/2，markdown渲染等等要说它的缺点，就是效率不如前两者。 本文会以下几块方面来介绍此服务器  caddy安装及配置文件基本写法 基本组成模块 传统php+my">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://emiria.io/img/caddy.jpg">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Caddy Server简易使用手册">
+<meta name="twitter:description" content="Caddy Server是一个用golang写的优秀web server，国内用户相对偏少，但我非常喜欢这个东西，所以来做个简易的手册。它有许多nginx和apache没有的功能，不仅具有特色而且非常实用，比如简洁的conf，http/2，markdown渲染等等要说它的缺点，就是效率不如前两者。 本文会以下几块方面来介绍此服务器  caddy安装及配置文件基本写法 基本组成模块 传统php+my">
+<meta name="twitter:image" content="https://emiria.io/img/caddy.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CaddyServer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/CaddyServer/" class="article-date">
+  <time datetime="2016-07-16T07:54:00.000Z" itemprop="datePublished">2016-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Caddy Server简易使用手册
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/img/caddy.jpg" alt=""><br>Caddy Server是一个用golang写的优秀web server，国内用户相对偏少，但我非常喜欢这个东西，所以来做个简易的手册。<br>它有许多nginx和apache没有的功能，不仅具有特色而且非常实用，比如简洁的conf，http/2，markdown渲染等等<br>要说它的缺点，就是效率不如前两者。</p>
+<p>本文会以下几块方面来介绍此服务器</p>
+<ul>
+<li>caddy安装及配置文件基本写法</li>
+<li>基本组成模块</li>
+<li>传统php+mysql建站</li>
+<li>caddy特色markdown建站</li>
+<li>反向代理引入更多后端系统</li>
+</ul>
+<a id="more"></a>
+<h1 id="1-Caddy的安装及配置文件基本写法"><a href="#1-Caddy的安装及配置文件基本写法" class="headerlink" title="1:Caddy的安装及配置文件基本写法"></a>1:Caddy的安装及配置文件基本写法</h1><p>caddy的安装，就是从caddy的官网下载：<a href="https://caddyserver.com/download" target="_blank" rel="external">https://caddyserver.com/download</a> 想要什么模块就尽情点上吧2333<br>如果没有官网列表上设备或是有特殊需求的同学，可以参考无闻菊苣的文章自行构建可执行文件：<a href="https://wuwen.org/2015/11/13/caddy-in-action.html" target="_blank" rel="external">https://wuwen.org/2015/11/13/caddy-in-action.html</a></p>
+<p>PS:解压时请把压缩包放在一个新文件夹后再解压，别问我为什么QwQ</p>
+<p>然后执行 <code>./caddy</code> 这时候访问<code>localhost:2015</code>就可以测试是否运行起来了，至于持久化运行，有多种方法实现，</p>
+<p>candyserver下载下来的安装包里已经包含各系统启动文件</p>
+<p>博主使用的是使用screen来守护，当然还有更专业的软件实现，比如supservisor和systemd，systemd在无闻菊苣的文章里已经有了，这里提供一份摘自互联网的supservisor的配置文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[program:caddy]</div><div class="line">command=/usr/bin/caddy -conf="/var/www/Caddyfile"  </div><div class="line">directory=/var/www        ; directory to cwd to before exec (def no cwd)  </div><div class="line">autostart=true                ; start at supervisord start (default: true)  </div><div class="line">autorestart=unexpected        ; whether/when to restart (default: unexpected)  </div><div class="line">startsecs=1                   ; number of secs prog must stay running (def. 1)  </div><div class="line">startretries=3                ; max # of serial start failures (default 3)  </div><div class="line">exitcodes=0,2                 ; 'expected' exit codes for process (default 0,2)  </div><div class="line">stopsignal=QUIT               ; signal used to kill process (default TERM)  </div><div class="line">stopwaitsecs=10               ; max num secs to wait b4 SIGKILL (default 10)  </div><div class="line">stopasgroup=false             ; send stop signal to the UNIX process group (default false)  </div><div class="line">user=www             ; setuid to this UNIX account to run the program  </div><div class="line">redirect_stderr=true          ; redirect proc stderr to stdout (default false)  </div><div class="line">stdout_logfile=/var/log/caddy.log        ; stdout log path, NONE for none; default AUTO  </div><div class="line">stderr_logfile=/var/log/caddyerr.log        ; stderr log path, NONE for none; default AUTO</div></pre></td></tr></table></figure></p>
+<p>caddy的conf写法有好多种，首先你要在caddy的可执行文件的同目录创建一个名叫<code>Caddyfile</code>的文件，或者在启动时加入路径<code>./caddy -conf=&quot;/path/to/Caddyfile&quot;</code><br>接下来是几种caddy的conf的写法，简直辣眼睛</p>
+<p>本地访问80：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:80</div></pre></td></tr></table></figure></p>
+<p>单网站：（它会帮您签好let’s encrypt证书并且强制定向到https）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">example.com</div><div class="line">root /var/www/html</div><div class="line">//更多模块</div></pre></td></tr></table></figure></p>
+<p>多网站：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">example.com &#123;</div><div class="line">  gzip</div><div class="line">  root /var/www/htm/</div><div class="line">  //更多模块</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="2-常用基本组成模块"><a href="#2-常用基本组成模块" class="headerlink" title="2:常用基本组成模块"></a>2:常用基本组成模块</h1><p>均写入到conf站点配置中</p>
+<p>1.log日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">log /var/www/log/example.log</div></pre></td></tr></table></figure></p>
+<p>2.目录访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">browse</div></pre></td></tr></table></figure></p>
+<p>3.gzip压缩<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gzip</div></pre></td></tr></table></figure></p>
+<p>4.自主ssl证书<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tls /path/ssl/example.com.crt /path/ssl/example.com.key</div></pre></td></tr></table></figure></p>
+<p>5.git拉取功能(3600秒为间隔时间)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git https://github.com/user/project.git /var/www/html/git/ &#123;</div><div class="line">  interval 3600</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>6.访问口令认证（用户emiria，密码abc123）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">basicauth / emiria abc123</div></pre></td></tr></table></figure></p>
+<p>7.cors跨域(下载时记得勾上)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cors / &#123;  </div><div class="line">    origin            https://alleysakura.com</div><div class="line">    origin            http://alleysakura.pw https://alleysakura.pw</div><div class="line">    methods           POST,PUT</div><div class="line">    allow_credentials false</div><div class="line">    max_age           3600</div><div class="line">    allowed_headers   X-Custom-Header,X-Foobar</div><div class="line">    exposed_headers   X-Something-Special,SomethingElse</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>8.IP屏蔽(下载时记得勾上)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ipfilter / &#123;  </div><div class="line">    rule       block</div><div class="line">    ip         212.10.15.0-255 202.10.15.0-10 59.43.247.103</div><div class="line">    blockpage  /var/www/html/403.html</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>9.跳转功能(目录重写功能也类似)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redir http://example.com&#123;url&#125;</div></pre></td></tr></table></figure></p>
+<p>而且不像nginx进行www重定向那么麻烦，把域名原域名（不限协议）写上，大括号里加上这个就可以，简直太赞了</p>
+<p>10.自定义错误页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">errors &#123;</div><div class="line">    404 404.html</div><div class="line">    500 /var/www/html/500.html</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="3-传统php-mysql建站"><a href="#3-传统php-mysql建站" class="headerlink" title="3:传统php+mysql建站"></a>3:传统php+mysql建站</h1><p>包管理器安装mysql+php，然后添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fastcgi / 127.0.0.1:9000 php</div></pre></td></tr></table></figure></p>
+<h1 id="4-caddy特色markdown建站"><a href="#4-caddy特色markdown建站" class="headerlink" title="4:caddy特色markdown建站"></a>4:caddy特色markdown建站</h1><p>首先载入markdown渲染格式(用index.html来定义，类似swig和ejs模板)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">markdown / &#123;</div><div class="line">  template index /path/templates/index.html</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这是一种渲染格式（index.html)<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>&#123;&#123;.Doc.title&#125;&#125;<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"styles/main.css"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">header</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/"</span>&gt;</span><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"page-title"</span>&gt;</span>&#123;&#123;.Doc.sitename&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">main</span>&gt;</span></div><div class="line">            &#123;&#123;range .Links&#125;&#125;</div><div class="line">                &#123;&#123;if ne .URL "/index.md" &#125;&#125;</div><div class="line">                    <span class="tag">&lt;<span class="name">article</span>&gt;</span></div><div class="line">                        <span class="tag">&lt;<span class="name">h3</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;.URL&#125;&#125;"</span>&gt;</span>&#123;&#123;.Title&#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">                        &#123;&#123;.Summary&#125;&#125;</div><div class="line">                    <span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line">                &#123;&#123;end&#125;&#125;</div><div class="line">            &#123;&#123;end&#125;&#125;</div><div class="line">        <span class="tag">&lt;/<span class="name">main</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>接下来，我们只用按照正常的markdown在网站根目录写了（index.md)<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">template: index</div><div class="line">title: caddy</div><div class="line">sitename: test caddy</div><div class="line">---</div><div class="line">text 233333333333333333</div></pre></td></tr></table></figure></p>
+<p>当然各种html标签也是可以滴，爱怎们玩怎么玩2333333</p>
+<h1 id="5-反向代理引入更多后端系统"><a href="#5-反向代理引入更多后端系统" class="headerlink" title="5:反向代理引入更多后端系统"></a>5:反向代理引入更多后端系统</h1><p>引入反向代理，只需一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">proxy / localhost:4000</div></pre></td></tr></table></figure></p>
+<p>负载均衡也是类似配置的23333<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">proxy / 10.10.201.222:80 10.10.201.221:80 &#123;</div><div class="line">        policy round_robin</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>当然caddyserver还有许多不常用的，但是非常好玩的组件，大家可以去官网看看文档，博主也将继续探索~（&gt; y &lt;)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/CaddyServer/" data-id="cj7alywla000d6s7aorv9imst" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/CaddyServer/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/Hello-hbut/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          你好 大学
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/Gogs/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Gogs:一个不错的GitWeb服务器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/CaddyServer/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

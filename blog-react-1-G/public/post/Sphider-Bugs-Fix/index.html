@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Sphider搜索引擎的安装及Bug修复 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Sphider呢，是一个极其简单易上手的搜索引擎，相比起Nutch之类的JAVA搜索引擎来说，降低了普通站长的使用难度，同时节省了对于机器的开销！虽然这个搜索引擎比较简陋（尤其前端23333）各种bug，以及万年不更新（大雾）等等，但我还是选择了它地址:http://www.sphider.eu/别问为什么，你去GitHub上看看就知道，不得不承认，上面有些源码写得的确好，但却没告诉我怎么用QAQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sphider搜索引擎的安装及Bug修复">
+<meta property="og:url" content="https://emiria.io/post/Sphider-Bugs-Fix/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="Sphider呢，是一个极其简单易上手的搜索引擎，相比起Nutch之类的JAVA搜索引擎来说，降低了普通站长的使用难度，同时节省了对于机器的开销！虽然这个搜索引擎比较简陋（尤其前端23333）各种bug，以及万年不更新（大雾）等等，但我还是选择了它地址:http://www.sphider.eu/别问为什么，你去GitHub上看看就知道，不得不承认，上面有些源码写得的确好，但却没告诉我怎么用QAQ">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sphider搜索引擎的安装及Bug修复">
+<meta name="twitter:description" content="Sphider呢，是一个极其简单易上手的搜索引擎，相比起Nutch之类的JAVA搜索引擎来说，降低了普通站长的使用难度，同时节省了对于机器的开销！虽然这个搜索引擎比较简陋（尤其前端23333）各种bug，以及万年不更新（大雾）等等，但我还是选择了它地址:http://www.sphider.eu/别问为什么，你去GitHub上看看就知道，不得不承认，上面有些源码写得的确好，但却没告诉我怎么用QAQ">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Sphider-Bugs-Fix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Sphider-Bugs-Fix/" class="article-date">
+  <time datetime="2016-06-22T13:45:00.000Z" itemprop="datePublished">2016-06-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Sphider搜索引擎的安装及Bug修复
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Sphider呢，是一个极其简单易上手的搜索引擎，相比起Nutch之类的JAVA搜索引擎来说，降低了普通站长的使用难度，同时节省了对于机器的开销！<br>虽然这个搜索引擎比较简陋（尤其前端23333）各种bug，以及万年不更新（大雾）等等，但我还是选择了它<br><a href="http://www.sphider.eu/" target="_blank" rel="external">地址:http://www.sphider.eu/</a><br>别问为什么，你去GitHub上看看就知道，不得不承认，上面有些源码写得的确好，但却没告诉我怎么用QAQ！！<br>有些是解析json的，有些干脆把json当数据库用，有些还要重新编译php加入额外分词组件 etc.</p>
+<p>好了以开始正题，如何去折腾这样一个搜索引擎~<br>首先，作者提供的Installation已经无法使用 <a href="http://www.sphider.eu/docs.php#installation" target="_blank" rel="external">http://www.sphider.eu/docs.php#installation</a><br>所以我来做一个具体的安装文档（我的运行环境 Nginx-1.11.1(SSL ON) Mysql5.5 PHP5.5)</p>
+<a id="more"></a>
+<p>1，下载源码并解压至网站根目录，并使用phpmyadmin创建一个新的数据库/用户</p>
+<p>2， 如果你是Linux用户的话执行以下命令，将timestamp的时间字段值设为默认0   .. #居然调到14….<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd sql</div><div class="line">sed &quot;s/timestamp(14)/timestamp default 0/g&quot; tables.sql</div></pre></td></tr></table></figure></p>
+<p>3，将修改好的sql导入至数据库里，进入settings里修改database.php配置数据库，进入auth.php里修改管理员用户名及密码（默认admin/admin）。</p>
+<p> 至此配置基本完成，但还没完！</p>
+<p>Sphider有严重的乱码问题，我们需要修改为默认UTF-8（这年头应该很少用GBK了吧）</p>
+<p>1，先看看php.ini里写没写，一般在 /etc 或者 /usr/local/php/etc/下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep -i &apos;default_charset&apos; php.ini</div></pre></td></tr></table></figure></p>
+<p>如果没有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">default_charset = &quot;UTF-8&quot;</div></pre></td></tr></table></figure></p>
+<p>则需要加上</p>
+<p>2，在前面提到的database.php里<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$success = mysql_select_db ($database);</div></pre></td></tr></table></figure></p>
+<p>后面加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_query(&quot;set names &apos;utf8&apos;&quot;);</div></pre></td></tr></table></figure></p>
+<p>这里建议使用nano/vi编辑器，不要用sed/awk命令，与正则表达式有冲突。</p>
+<p>3，在admin的spider.php里<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$file = file_get_contents($url);</div></pre></td></tr></table></figure></p>
+<p>后面 换行 加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$file=mb_convert_encoding($file,&quot;UTF-8&quot;,&quot;gbk,gb2312,UTF-8&quot;);</div></pre></td></tr></table></figure></p>
+<p>另外Sphider不支持https站点，不过这个有多种方案可以解决：nginx报头识别，修改本地hosts，等等的方法都可以实现啦~</p>
+<!--more-->
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Sphider-Bugs-Fix/" data-id="cj7alywlk000o6s7ak0uu84mz" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Sphider-Bugs-Fix/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/A-Good-MiniLinux/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          一个值得尝试的小型linux发行版-TinyCore
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/NewStart/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">我又回来啦!</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/Sphider-Bugs-Fix/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

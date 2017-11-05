@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>针对HTTP/2的一些优化 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HTTP/2现在来说已经不新鲜了,很多博客第一时间都用上了HTTP/2.但是里面有很多小细节值得推敲! 很多人打开chrome的控制台一看,WoW~ h2启用成功了.实际上并不然,这只代表了服务器给你发出了HTTP/2的CipherSuite,不一定真的启用了HTTP/2.但是我们可以用抓包工具来check.这个就不详细说明了.看使用文档去23333333但我们可以用更简单的方法来检验-&amp;gt;S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="针对HTTP&#x2F;2的一些优化">
+<meta property="og:url" content="https://emiria.io/post/something-about-ssl-handshake/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="HTTP/2现在来说已经不新鲜了,很多博客第一时间都用上了HTTP/2.但是里面有很多小细节值得推敲! 很多人打开chrome的控制台一看,WoW~ h2启用成功了.实际上并不然,这只代表了服务器给你发出了HTTP/2的CipherSuite,不一定真的启用了HTTP/2.但是我们可以用抓包工具来check.这个就不详细说明了.看使用文档去23333333但我们可以用更简单的方法来检验-&amp;gt;S">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="针对HTTP&#x2F;2的一些优化">
+<meta name="twitter:description" content="HTTP/2现在来说已经不新鲜了,很多博客第一时间都用上了HTTP/2.但是里面有很多小细节值得推敲! 很多人打开chrome的控制台一看,WoW~ h2启用成功了.实际上并不然,这只代表了服务器给你发出了HTTP/2的CipherSuite,不一定真的启用了HTTP/2.但是我们可以用抓包工具来check.这个就不详细说明了.看使用文档去23333333但我们可以用更简单的方法来检验-&amp;gt;S">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-something-about-ssl-handshake" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/something-about-ssl-handshake/" class="article-date">
+  <time datetime="2016-02-20T06:49:00.000Z" itemprop="datePublished">2016-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      针对HTTP/2的一些优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>HTTP/2现在来说已经不新鲜了,很多博客第一时间都用上了HTTP/2.但是里面有很多小细节值得推敲!</p>
+<p>很多人打开chrome的控制台一看,WoW~ h2启用成功了.实际上并不然,这只代表了服务器给你发出了HTTP/2的CipherSuite,不一定真的启用了HTTP/2.但是我们可以用抓包工具来check.这个就不详细说明了.看使用文档去23333333<br>但我们可以用更简单的方法来检验-&gt;SSLLABS<a href="https://ssllabs.com" target="_blank" rel="external">https://www.ssllabs.com</a>这是一款在线的ssl检测的网站,权威且专业.<br>检测完毕后,我们可以查看Handshake Simulation,从IE6到最新的Edge都有<br>如果没有使用HTTP/2,则显示<br><code>TLS 1.2 &gt; http/1.1</code><br>如果HTTP/2启用成功,则显示<br><code>TLS 1.2 &gt; h2</code></p>
+<p>如果算法调不好,甚至还会出现Chrome和ff无法访问的情况<br>如何正确的使用HTTP/2.关于握手算法我推荐<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssl_ciphers  ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:AES256-GCM-SHA384;</div></pre></td></tr></table></figure></p>
+<p>如果你使用了BoringSSL 我推荐<a href="https://www.imququ.com" target="_blank" rel="external">JerryQu</a>提供的算法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssl_ciphers [ECDHE-ECDSA-AES128-GCM-SHA256|ECDHE-ECDSA-CHACHA20-POLY1305]:[ECDHE-RSA-AES128-GCM-SHA256|ECDHE-RSA-CHACHA20-POLY1305]:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:AES256-GCM-SHA384:DES-CBC3-SHA;</div></pre></td></tr></table></figure></p>
+<p>另外,博主发现了几个BoringSSL的bug,希望大家注意!<br>1:BoringSSL下,nginx-ct模块目前处于失效状态,无法启用<br>2:安装好后编译nginx时会报错<br><code>|| n == SSL_R_NO_CIPHERS_SPECIFIED              /*183*/</code><br>解决方案 <code>nano ./src/event/ngx_event_openssl.c</code> ,然后删除这一行<br>另外,关于食用BoringSSL的方法,以及另外的一个BUG.可以查看JerryQu的文章<a href="https://imququ.com/post/optimize-ssl-ciphers-with-boringssl.html" target="_blank" rel="external">https://imququ.com/post/optimize-ssl-ciphers-with-boringssl.html</a><br><a id="more"></a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/something-about-ssl-handshake/" data-id="cj7alywmb00186s7axajcfg4j" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/something-about-ssl-handshake/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/NewStart/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          我又回来啦!
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/A-Shadowsock-Bug/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">一个Shadowsock Bug</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/something-about-ssl-handshake/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

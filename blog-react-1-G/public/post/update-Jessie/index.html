@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>给树莓派滚到了Jessie | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="难得周六不补课，折腾一下小pi，性能优化一下。这次是在pi2上进行的，老的b+版编译到kernel4.3内核后，操作还好好的，然后滚Jessie的时候就滚挂了，原因不详……… 1. 移除web相关组件 2. 精简系统 3. 升级系统 4. 再次精简优化 5. 配置vim 6. 无   #差点把桌面换成了gnome">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给树莓派滚到了Jessie">
+<meta property="og:url" content="https://emiria.io/post/update-Jessie/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="难得周六不补课，折腾一下小pi，性能优化一下。这次是在pi2上进行的，老的b+版编译到kernel4.3内核后，操作还好好的，然后滚Jessie的时候就滚挂了，原因不详……… 1. 移除web相关组件 2. 精简系统 3. 升级系统 4. 再次精简优化 5. 配置vim 6. 无   #差点把桌面换成了gnome">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="给树莓派滚到了Jessie">
+<meta name="twitter:description" content="难得周六不补课，折腾一下小pi，性能优化一下。这次是在pi2上进行的，老的b+版编译到kernel4.3内核后，操作还好好的，然后滚Jessie的时候就滚挂了，原因不详……… 1. 移除web相关组件 2. 精简系统 3. 升级系统 4. 再次精简优化 5. 配置vim 6. 无   #差点把桌面换成了gnome">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-update-Jessie" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/update-Jessie/" class="article-date">
+  <time datetime="2015-11-27T17:54:00.000Z" itemprop="datePublished">2015-11-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      给树莓派滚到了Jessie
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!--markdown-->难得周六不补课，折腾一下小pi，性能优化一下。<br>这次是在pi2上进行的，老的b+版编译到kernel4.3内核后，操作还好好的，然后滚Jessie的时候就滚挂了，原因不详………<br><br> 1. 移除web相关组件<br> 2. 精简系统<br> 3. 升级系统<br> 4. 再次精简优化<br> 5. 配置vim<br> 6. 无   #差点把桌面换成了gnome<br><a id="more"></a>
+<p>上次的lamp拖得小pi每次top一下都吓死人，先把这个东西移除了吧……<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-get autoremove apache2</div><div class="line">sudo apt-get autoremove mysql</div><div class="line">sudo apt-get autoremove php5</div><div class="line">sudo apt-get remove phpmyadmin</div></pre></td></tr></table></figure></p>
+<p>精简系统，把python，pythongame，小奶瓶，wifite都移除掉，用法如上。<br>升级系统，换源，这次tuna源炒鸡卡，100kb的速度……下载依赖总共差不多花了2个小时……<br>以下是具体食用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line">sudo apt-get upgrade</div><div class="line">sudo apt-get dist-upgrade</div><div class="line">```    </div><div class="line">进入`/etc/apt/sources.list`把所有wheezy字符换成jessie，重复以上操作</div><div class="line">```  </div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get upgrade</div><div class="line">sudo apt-get dist-upgrade</div></pre></td></tr></table></figure></p>
+<p>中途会提示很多是否保留源配置，更具自己的需要选择即可，也可以查看更新内容<br>有提示说是否是从ssh操作，需如实选择，否则会boom</p>
+<p>重启<code>sudo reboot</code></p>
+<p>继续精简，系统居然少了许多组件，只需要移除python相关即可</p>
+<p>安装vim，vim是树莓派上能用的编辑器中，最好用的一个了……</p>
+<pre><code>sudo apt-get install vim
+</code></pre><p>然后开始塞插件233333333</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/update-Jessie/" data-id="cj7alywmd001b6s7abqvhr02k" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/update-Jessie/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/win-s-2012-r2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          体验Windows service 2012 R2/ /一些其他内容更新
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/shell-study1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Shell学习笔记(1)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/update-Jessie/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

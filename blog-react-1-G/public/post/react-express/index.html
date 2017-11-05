@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>React与Express项目前后端一体化实战 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在之前的造轮子的过程中，前后端分离开来写实在蛋疼，所以最近决定研究并折腾一下前后端工程一体化。 在这样的实时的环境中，最重要的是做好前后端之间的协调作用，说白了，也就是路径规划问题与热刷新问题。 在我的项目中，我选择开发和生产的环境的加载代码制作两份，只有模板，中间件什么的代码的通用。(网上推崇使用env变量来加载热更新组件，但是本人并不推崇全部使用env) 主要就是分析几项内容，除了工程的路径规">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React与Express项目前后端一体化实战">
+<meta property="og:url" content="https://emiria.io/post/react-express/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="在之前的造轮子的过程中，前后端分离开来写实在蛋疼，所以最近决定研究并折腾一下前后端工程一体化。 在这样的实时的环境中，最重要的是做好前后端之间的协调作用，说白了，也就是路径规划问题与热刷新问题。 在我的项目中，我选择开发和生产的环境的加载代码制作两份，只有模板，中间件什么的代码的通用。(网上推崇使用env变量来加载热更新组件，但是本人并不推崇全部使用env) 主要就是分析几项内容，除了工程的路径规">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React与Express项目前后端一体化实战">
+<meta name="twitter:description" content="在之前的造轮子的过程中，前后端分离开来写实在蛋疼，所以最近决定研究并折腾一下前后端工程一体化。 在这样的实时的环境中，最重要的是做好前后端之间的协调作用，说白了，也就是路径规划问题与热刷新问题。 在我的项目中，我选择开发和生产的环境的加载代码制作两份，只有模板，中间件什么的代码的通用。(网上推崇使用env变量来加载热更新组件，但是本人并不推崇全部使用env) 主要就是分析几项内容，除了工程的路径规">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-react-express" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/react-express/" class="article-date">
+  <time datetime="2017-05-11T06:03:00.000Z" itemprop="datePublished">2017-05-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React与Express项目前后端一体化实战
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在之前的造轮子的过程中，前后端分离开来写实在蛋疼，所以最近决定研究并折腾一下前后端工程一体化。</p>
+<p>在这样的实时的环境中，最重要的是做好前后端之间的协调作用，说白了，也就是路径规划问题与热刷新问题。</p>
+<p>在我的项目中，我选择开发和生产的环境的加载代码制作两份，只有模板，中间件什么的代码的通用。(网上推崇使用env变量来加载热更新组件，但是本人并不推崇全部使用env)</p>
+<p>主要就是分析几项内容，除了工程的路径规划，一是开发代码(app.js)，二是生产代码(server.js)，最后还有模板引擎的调整</p>
+<a id="more"></a>
+<p>首先是路径规划问题，两个甚至更多工程的合并，我们必须得把路径规划好</p>
+<p>举个栗子（窝的）我选择把express脚手架生成的大部分文件放到server文件夹里，外面只留启动文件（相信熟悉express的同学一眼就能看出），前端react的代码放置到client里。启动代码在bin里<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── app.js</div><div class="line">├── bin</div><div class="line">│   ├── dev.js</div><div class="line">│   └── server.js</div><div class="line">├── client</div><div class="line">│   ├── index.js</div><div class="line">│   └── public</div><div class="line">├── node_modules</div><div class="line">├── package.json</div><div class="line">├── server</div><div class="line">│   ├── info</div><div class="line">│   ├── public</div><div class="line">│   ├── routes</div><div class="line">│   └── views</div><div class="line">├── server.js</div><div class="line">├── webpack.dev.config.js</div><div class="line">└── webpack.production.config.js</div></pre></td></tr></table></figure></p>
+<p>启动脚本<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">"scripts": &#123;</div><div class="line">    "start": "cross-env NODE_ENV=production node ./bin/server.js",</div><div class="line">    "dev": "cross-env NODE_ENV=dev node ./bin/dev.js",</div><div class="line">    "bulid": "NODE_ENV=production webpack -p --config webpack.production.config.js"</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="开发代码"><a href="#开发代码" class="headerlink" title="开发代码"></a>开发代码</h3><p>在开发中，我们需要调用webpackDevMiddleware和webpackHotMiddleware两套东西，当然，为了不发生找不到组件的尴尬情况，我们还是把大部分依赖装上吧,同样生产版本也需要用到一些组件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev chunk-manifest-webpack-plugin cross-env html-webpack-plugin webpack-chunk-hash webpack-dev-middleware webpack-dev-server webpack-hot-middleware webpack-manifest-plugin</div></pre></td></tr></table></figure></p>
+<p>在开发代码中，我们先使用cross-env设为dev，然后我们在开发版本的启动入口js里加入</p>
+<p> 注意 ：需要在app定义后就要引入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 设置环境变量</span></div><div class="line">app.locals.env = process.env.NODE_ENV || <span class="string">'dev'</span>;</div><div class="line"></div><div class="line"><span class="comment">// 热加载功能导入</span></div><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>),</div><div class="line">    webpackDevMiddleware = <span class="built_in">require</span>(<span class="string">'webpack-dev-middleware'</span>),</div><div class="line">    webpackHotMiddleware = <span class="built_in">require</span>(<span class="string">'webpack-hot-middleware'</span>),</div><div class="line">    webpackDevConfig = <span class="built_in">require</span>(<span class="string">'./webpack.dev.config.js'</span>); <span class="comment">// 你自己创建的适用于开发版本的webpack配置。具体写法之后会说明</span></div><div class="line"><span class="keyword">var</span> compiler = webpack(webpackDevConfig);</div><div class="line"></div><div class="line"><span class="comment">// 热加载功能挂载部分,里面的配置来自</span></div><div class="line">app.use(webpackDevMiddleware(compiler, &#123;</div><div class="line"></div><div class="line">    <span class="comment">// public path should be the same with webpack config</span></div><div class="line">    publicPath: webpackDevConfig.output.publicPath,</div><div class="line">    noInfo: <span class="literal">true</span>,</div><div class="line">    stats: &#123;</div><div class="line">        colors: <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">&#125;));</div><div class="line"></div><div class="line">app.use(webpackHotMiddleware(compiler));</div></pre></td></tr></table></figure>
+<p>在最后module.exports前加入重启相关代码。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">var</span> reload = <span class="built_in">require</span>(<span class="string">'reload'</span>);</div><div class="line"><span class="keyword">var</span> server = http.createServer(app);</div><div class="line">reload(server, app);</div></pre></td></tr></table></figure></p>
+<p><del>我很担心这会增加很多占用</del></p>
+<p>这样，在express里的内容就完了,模板引擎的调整我们放到最后讲。</p>
+<p>接下来我们讲讲webpack.dev.config.js开发配置的问题,直接贴23333333。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"><span class="keyword">var</span> node_modules_dir = path.resolve(__dirname, <span class="string">'node_modules'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> publicPath = <span class="string">'http://127.0.0.1:3000/'</span>;</div><div class="line"><span class="keyword">var</span> hotMiddlewareScript = <span class="string">'webpack-hot-middleware/client?reload=true'</span>; <span class="comment">//加载热跟新中间件</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> config = &#123;</div><div class="line">  entry: [ hotMiddlewareScript, <span class="string">'./client/index.js'</span>], <span class="comment">//使用热更新功能</span></div><div class="line">  output: &#123;</div><div class="line">    path: path.resolve(__dirname, <span class="string">'./server/public/static/js/'</span>),</div><div class="line">    filename: <span class="string">'bundle.js'</span>,</div><div class="line">    publicPath: publicPath</div><div class="line">  &#125;,</div><div class="line">  <span class="built_in">module</span>: &#123;</div><div class="line">    loaders: [</div><div class="line">      &#123;</div><div class="line">        test: <span class="regexp">/\.js$/</span>,</div><div class="line">        exclude: <span class="regexp">/node_modules/</span>,</div><div class="line">        loader: <span class="string">'babel-loader?presets[]=es2015&amp;presets[]=react'</span></div><div class="line">      &#125;,</div><div class="line">      &#123;</div><div class="line">        test: <span class="regexp">/\.css$/</span>,</div><div class="line">        exclude: <span class="regexp">/node_modules/</span>,</div><div class="line">        use: [<span class="string">'style-loader'</span>,<span class="string">'css-loader'</span> ]</div><div class="line">      &#125;</div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  <span class="comment">/* 创建热更新热加载组件 */</span></div><div class="line">  plugins: [</div><div class="line">        <span class="comment">// new webpack.optimize.OccurenceOrderPlugin(), //用webpack1.0版本时才需要</span></div><div class="line">        <span class="keyword">new</span> webpack.HotModuleReplacementPlugin(),</div><div class="line">        <span class="keyword">new</span> webpack.NoEmitOnErrorsPlugin()</div><div class="line">    ]</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = config;</div></pre></td></tr></table></figure>
+<p>这时候，大部分已经完成了，如果你急着试试，可以看文章最后有关模板引擎的内容，就可以启动你的开发版本的app.js，功能都得到了保留，webpack打包信息和express的信息都会console出来。</p>
+<hr>
+<h3 id="生产代码"><a href="#生产代码" class="headerlink" title="生产代码"></a>生产代码</h3><p>生产代码的express入口不需要怎么改动，只需设置下环境变量即可<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.locals.env = process.env.NODE_ENV || <span class="string">'production'</span>;</div></pre></td></tr></table></figure></p>
+<p>重要的是webpack的配置文件，我在这里使用的是 webpack.production.config.js</p>
+<p>在这里，最关键的一点是，如何把打包出来的带hash值的js的文件名传进后端模板中，这时我们需要webpack-manifest-plugin这个东西，</p>
+<p>网上使用的很多推荐直接用inlineManifest去载入进ejs，但实际上非常不符合需求，webpack需要随时开启着，也不好用。直接贴代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">"webpack"</span>);</div><div class="line"><span class="keyword">var</span> node_modules_dir = path.resolve(__dirname, <span class="string">'node_modules'</span>);</div><div class="line"><span class="keyword">var</span> ManifestPlugin = <span class="built_in">require</span>(<span class="string">'webpack-manifest-plugin'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> config = &#123;</div><div class="line">  entry: &#123;</div><div class="line">    main: path.resolve(__dirname, <span class="string">'client/index.js'</span>)</div><div class="line">  &#125;,</div><div class="line">  output: &#123;</div><div class="line">    path: path.resolve(__dirname, <span class="string">'server/public/static/js'</span>),</div><div class="line">    filename: <span class="string">'[name].[chunkhash:16].js'</span>,</div><div class="line">  &#125;,</div><div class="line">  <span class="built_in">module</span>: &#123;</div><div class="line">    loaders: [</div><div class="line">      &#123;</div><div class="line">        test: <span class="regexp">/\.js$/</span>,</div><div class="line">        exclude: <span class="regexp">/node_modules/</span>,</div><div class="line">        loader: <span class="string">'babel-loader?presets[]=es2015&amp;presets[]=react'</span></div><div class="line">      &#125;,</div><div class="line">      &#123;</div><div class="line">        test: <span class="regexp">/\.css$/</span>, <span class="comment">// Only .css files</span></div><div class="line">        exclude: <span class="regexp">/node_modules/</span>,</div><div class="line">        use: [<span class="string">'style-loader'</span>,<span class="string">'css-loader'</span> ]</div><div class="line">      &#125;</div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  plugins:[</div><div class="line">    <span class="keyword">new</span> ManifestPlugin(&#123;</div><div class="line">      fileName: <span class="string">'my-manifest.json'</span></div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = config;</div></pre></td></tr></table></figure>
+<p>这里会在打包出的js同目录下生成一个json，记录了文件名。</p>
+<p>所以这时候，我们就可以去express中间件里写功能去提取文件名，<del>这里我遇到了非常大的坑，虽然解决了，但都不好意思说出来</del>，然后呢，用了非常粗暴的方法…</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mymanifest = <span class="built_in">require</span>(<span class="string">"../public/static/js/my-manifest"</span>);</div><div class="line"><span class="keyword">var</span> exportFileName = mymanifest[<span class="string">"main.js"</span>];</div><div class="line"><span class="keyword">var</span> filestring = <span class="string">'&lt;script src="/static/js/'</span> + exportFileName + <span class="string">'"&gt;&lt;/script&gt;'</span></div></pre></td></tr></table></figure>
+<p>中间件改造完成，可以直接render进模板了</p>
+<hr>
+<h3 id="模板部分"><a href="#模板部分" class="headerlink" title="模板部分"></a>模板部分</h3><p>简单粗暴orz<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">env</span> !== <span class="string">"production"</span> ) &#123; %&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> &#125; <span class="attr">else</span> &#123; %&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">%-</span> <span class="attr">jsfile</span> %&gt;</span> <span class="comment">&lt;!-- jsfile是从render传过来的值“-”是为了防止被转译 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这时候，run一下build，webpack打包出东西，再start，就是标准生产的服务状态</p>
+<hr>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="http://acgtofe.com/posts/2016/02/full-live-reload-for-express-with-webpack" target="_blank" rel="external">http://acgtofe.com/posts/2016/02/full-live-reload-for-express-with-webpack</a><br><a href="https://doc.webpack-china.org/guides/caching/" target="_blank" rel="external">https://doc.webpack-china.org/guides/caching/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/react-express/" data-id="cj7alywm900166s7adywgvned" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/react-express/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/HBUT-2ACM/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          HBUT 2nd ACM Contest
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/npm-check/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">一个非常好用的npm包管理工具npm-check</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/react-express/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

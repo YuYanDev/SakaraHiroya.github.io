@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在墙内部署docker镜像的正确姿势 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="说换镜像什么的都是扯淡，根本无法好好使用。本文将会告诉你在墙内部署docker应用的正确姿势。 本文基于Ubuntu 16.04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。如果你的环境是aliyun ecs请前往/etc/apt/source.list里把所有mirrors.aliyuncs.com的镜像注释掉！ 检查内核是否需要升级 uname -a查看，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在墙内部署docker镜像的正确姿势">
+<meta property="og:url" content="https://emiria.io/post/docker_cn/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="说换镜像什么的都是扯淡，根本无法好好使用。本文将会告诉你在墙内部署docker应用的正确姿势。 本文基于Ubuntu 16.04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。如果你的环境是aliyun ecs请前往/etc/apt/source.list里把所有mirrors.aliyuncs.com的镜像注释掉！ 检查内核是否需要升级 uname -a查看，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在墙内部署docker镜像的正确姿势">
+<meta name="twitter:description" content="说换镜像什么的都是扯淡，根本无法好好使用。本文将会告诉你在墙内部署docker应用的正确姿势。 本文基于Ubuntu 16.04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。如果你的环境是aliyun ecs请前往/etc/apt/source.list里把所有mirrors.aliyuncs.com的镜像注释掉！ 检查内核是否需要升级 uname -a查看，">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-docker_cn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/docker_cn/" class="article-date">
+  <time datetime="2017-03-21T14:22:00.000Z" itemprop="datePublished">2017-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在墙内部署docker镜像的正确姿势
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="说换镜像什么的都是扯淡，根本无法好好使用。"><a href="#说换镜像什么的都是扯淡，根本无法好好使用。" class="headerlink" title="说换镜像什么的都是扯淡，根本无法好好使用。"></a>说换镜像什么的都是扯淡，根本无法好好使用。</h4><p>本文将会告诉你在墙内部署docker应用的正确姿势。</p>
+<h4 id="本文基于Ubuntu-16-04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。"><a href="#本文基于Ubuntu-16-04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。" class="headerlink" title="本文基于Ubuntu 16.04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。"></a>本文基于Ubuntu 16.04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。</h4><p>如果你的环境是aliyun ecs请前往<code>/etc/apt/source.list</code>里把所有mirrors.aliyuncs.com的镜像注释掉！</p>
+<p>检查内核是否需要升级 <code>uname -a</code>查看，大于3.16即可。如果小于3.16，可以按照这篇教程换掉你的内核并提升你的服务器性能: <a href="https://emiria.io/post/TCP-BBR/" target="_blank" rel="external">https://emiria.io/post/TCP-BBR/</a></p>
+<h4 id="接下来是具体步骤。"><a href="#接下来是具体步骤。" class="headerlink" title="接下来是具体步骤。"></a>接下来是具体步骤。</h4><a id="more"></a>
+<p>首先 <code>apt-get update</code></p>
+<p>安装screen：<code>apt-get install screen</code><br>建立一个screen窗口：<code>screen -S installDocker</code></p>
+<p>然后，安装配置shadowsocks（没代理玩个鬼）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">apt-get install python</div><div class="line">apt-get install python-pip</div><div class="line">pip install shadowsocks</div></pre></td></tr></table></figure></p>
+<p>在Ubuntu1604上，可能安装ss会报错：<code>locale.Error: unsupported locale setting</code><br>输入<code>export LC_ALL=C</code>即可。</p>
+<p>在方便的位置建立一个 ss.json并在里面根据实际情况填入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;server&quot;: &quot;11.22.33.44&quot;,</div><div class="line">  &quot;server_port&quot;: 40002,</div><div class="line">  &quot;local_port&quot;: 1080,</div><div class="line">  &quot;password&quot;: &quot;123123123&quot;,</div><div class="line">  &quot;timeout&quot;: 600,</div><div class="line">  &quot;method&quot;: &quot;aes-256-cfb&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>启动shadowssocks<br><code>sslocal -c ss.json -d start</code><br>PS：如果机器重启后需要重新执行</p>
+<p>我们需要一个工具来吧socks5代理转换为http代理&gt;&gt; polipo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install polipo</div></pre></td></tr></table></figure></p>
+<p>修改<code>/etc/polipo/config</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">logSyslog = true</div><div class="line">logFile = /var/log/polipo/polipo.log</div><div class="line">proxyAddress = &quot;0.0.0.0&quot;</div><div class="line">socksParentProxy = &quot;127.0.0.1:1080&quot;</div><div class="line">socksProxyType = socks5</div><div class="line">chunkHighMark = 50331648</div><div class="line">objectHighMark = 16384</div><div class="line">serverMaxSlots = 64</div><div class="line">serverSlots = 16</div><div class="line">serverSlots1 = 32</div></pre></td></tr></table></figure></p>
+<p>重启polipo：<code>/etc/init.d/polipo restart</code></p>
+<p>配置代理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export http_proxy=&quot;http://127.0.0.1:8123/&quot;</div><div class="line">export https_proxy=&quot;http://127.0.0.1:8123/&quot;</div></pre></td></tr></table></figure></p>
+<h3 id="注意：此方法只在当前tty下有效，重启或开启新的tty或者screen窗口后需要重新执行export配置，关闭unset-http-proxy。"><a href="#注意：此方法只在当前tty下有效，重启或开启新的tty或者screen窗口后需要重新执行export配置，关闭unset-http-proxy。" class="headerlink" title="注意：此方法只在当前tty下有效，重启或开启新的tty或者screen窗口后需要重新执行export配置，关闭unset http_proxy。"></a>注意：此方法只在当前tty下有效，重启或开启新的tty或者screen窗口后需要重新执行export配置，关闭<code>unset http_proxy</code>。</h3><p>你可以使用 <code>curl myip.ipip.net</code>命令来校验代理是否开启成功。</p>
+<p>这时，你可以愉悦的在全局代理下安装docker了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget -qO- https://get.docker.io/ | sh</div></pre></td></tr></table></figure></p>
+<h4 id="关于docker的http代理"><a href="#关于docker的http代理" class="headerlink" title="关于docker的http代理"></a>关于docker的http代理</h4><p>以下docker代理的配置文件摘自docker官网，亲测可行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir -p /etc/systemd/system/docker.service.d</div></pre></td></tr></table></figure>
+<p>在<code>/etc/systemd/system/docker.service.d/http-proxy.conf</code>中写入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[Service]</div><div class="line">Environment=&quot;HTTP_PROXY=http://127.0.0.1:8123/&quot;</div></pre></td></tr></table></figure></p>
+<p>然后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemctl daemon-reload</div><div class="line">systemctl restart docker</div></pre></td></tr></table></figure></p>
+<p>使用<code>systemctl show --property=Environment docker</code>来查看是否写入成功。</p>
+<p>到此为止，应付大部分docker容器应该是够了！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/docker_cn/" data-id="cj7alywlq000t6s7ali54trht" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/docker_cn/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/npm-check/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          一个非常好用的npm包管理工具npm-check
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/DellR410-BIOS/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Dell R410服务器踩坑总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/docker_cn/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

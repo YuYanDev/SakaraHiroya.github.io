@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Centos安装Munin服务器监控系统 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="为什么窝选择Munin系统，原因很简单，安全，轻量快速，可分析性强。 其实很多开源镜像站和一些老网站都采用这个系统，历史悠久，占用小，各种强悍的图表 Munin分为监控机软件(munin)和被监控机软件(munin-node),两个，其中一台机器上必须都安装（作为监控机）其余机器安装munin-node即可 安装非常简单。munin基于Perl，我们应该先装好perl全家桶。由于rrdtool在e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos安装Munin服务器监控系统">
+<meta property="og:url" content="https://emiria.io/post/Munin-setup/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="为什么窝选择Munin系统，原因很简单，安全，轻量快速，可分析性强。 其实很多开源镜像站和一些老网站都采用这个系统，历史悠久，占用小，各种强悍的图表 Munin分为监控机软件(munin)和被监控机软件(munin-node),两个，其中一台机器上必须都安装（作为监控机）其余机器安装munin-node即可 安装非常简单。munin基于Perl，我们应该先装好perl全家桶。由于rrdtool在e">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos安装Munin服务器监控系统">
+<meta name="twitter:description" content="为什么窝选择Munin系统，原因很简单，安全，轻量快速，可分析性强。 其实很多开源镜像站和一些老网站都采用这个系统，历史悠久，占用小，各种强悍的图表 Munin分为监控机软件(munin)和被监控机软件(munin-node),两个，其中一台机器上必须都安装（作为监控机）其余机器安装munin-node即可 安装非常简单。munin基于Perl，我们应该先装好perl全家桶。由于rrdtool在e">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Munin-setup" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Munin-setup/" class="article-date">
+  <time datetime="2016-12-31T14:34:00.000Z" itemprop="datePublished">2016-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Centos安装Munin服务器监控系统
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>为什么窝选择Munin系统，原因很简单，安全，轻量快速，可分析性强。</p>
+<p>其实很多开源镜像站和一些老网站都采用这个系统，历史悠久，占用小，各种强悍的图表</p>
+<p>Munin分为监控机软件(munin)和被监控机软件(munin-node),两个，其中一台机器上必须都安装（作为监控机）其余机器安装munin-node即可</p>
+<p>安装非常简单。munin基于Perl，我们应该先装好perl全家桶。由于rrdtool在epel源里才有，所以我们应该提前设置epel源。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install munin munin-common munin-node rrdtool</div></pre></td></tr></table></figure></p>
+<p>这是两个非常重要的配置文件位置，关于如何增加节点在配置文件里都有配置说明和例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/etc/munin/munin.conf  #主监控机配置</div><div class="line">/etc/munin/munin-node.conf  #节点机器配置</div></pre></td></tr></table></figure></p>
+<p>有关nginx访问也很简单，munin安装好后，默认已经生成在<code>/var/www/html/munin/</code>下，我们只需把网站配置文件的location指向这个目录即可</p>
+<p>munin默认记录监控日志，并自动压缩储存在<code>/var/log/munin</code>下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service munin-node start</div></pre></td></tr></table></figure>
+<p>我在使用中发现一个巨大问题，就是网页不会刷新，于是尝试手动刷新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/munin-cron</div></pre></td></tr></table></figure></p>
+<p>但是返回这个错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">This program will easily break if you run it as root as you are</div><div class="line">trying now.  Please run it as user &apos;nobody&apos;.  The correct &apos;su&apos; command</div><div class="line">on many systems is &apos;su - munin --shell=/bin/bash&apos;</div><div class="line">Aborting.</div></pre></td></tr></table></figure></p>
+<p>OK,我们切换到munin用户，当再次执行的时候，又报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ERROR] Could not copy contents from /etc/munin/static/ to /[path to static file] at /usr/share/perl5/vendor_perl/Munin/Master/HTMLOld.pm line 716.</div></pre></td></tr></table></figure></p>
+<p>Google一圈，找到解决方案<a href="http://serverfault.com/questions/605226/munin-cron-unable-to-copy-contents" target="_blank" rel="external">http://serverfault.com/questions/605226/munin-cron-unable-to-copy-contents</a><br>明显是epel源那堆打包的工程师粗心好不好orz，好在可以结决了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">su - munin --shell=/bin/bash  #切换到munin用户</div><div class="line">chown -R munin:munin  /var/www/html/munin  #更改权限</div><div class="line">exit #返回root用户</div></pre></td></tr></table></figure>
+<p>等五分钟你就可以看到正常刷新了</p>
+<p>默认监听端口4949，多机集群别忘了放行端口。<br><a id="more"></a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Munin-setup/" data-id="cj7alywlh000l6s7awknm9owa" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Munin-setup/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/WelcomeTo2017/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          你好2017
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/Aliyun-Bad-Work-Order/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">关于阿里云糟糕的工单服务</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/Munin-setup/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

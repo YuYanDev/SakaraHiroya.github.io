@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>关于阿里云糟糕的工单服务 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文除了暴露了一些阿里云的问题外，有些个人的情绪，故折叠。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于阿里云糟糕的工单服务">
+<meta property="og:url" content="https://emiria.io/post/Aliyun-Bad-Work-Order/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="本文除了暴露了一些阿里云的问题外，有些个人的情绪，故折叠。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://emiria.io/img/aliyunwo.png">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于阿里云糟糕的工单服务">
+<meta name="twitter:description" content="本文除了暴露了一些阿里云的问题外，有些个人的情绪，故折叠。">
+<meta name="twitter:image" content="https://emiria.io/img/aliyunwo.png">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Aliyun-Bad-Work-Order" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Aliyun-Bad-Work-Order/" class="article-date">
+  <time datetime="2016-12-30T13:36:00.000Z" itemprop="datePublished">2016-12-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于阿里云糟糕的工单服务
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文除了暴露了一些阿里云的问题外，有些个人的情绪，故折叠。</p>
+<a id="more"></a>
+<p>关于阿里云糟糕的工单的服务，让我怀疑他们售后工程师的linux运维水平。</p>
+<p>原本我对阿里云的印象非常好，在之前使用阿里云的各种服务都给了我非常好的体验，直到这次才发现糟糕的一面。</p>
+<p>具体问题详见对话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">我：ecs只有22端口可以访问，服务器上防火墙已经关了（debian8 iptables），但浏览器显示访问被拒绝，</div><div class="line">    Nginx监听端口正常（非80端口，用的是5000和7000），在云服务器上telnet localhost 7000是正常的，</div><div class="line">    但我这里的计算机telnet到ecs显示被拒，阿里云ecs内网组策略全部放行，如何处理？</div><div class="line"></div><div class="line">工程师：我这测试7000端口是不通的，22端口正常，建议您提供一下端口监听的截图，我这核实一下，谢谢</div></pre></td></tr></table></figure></p>
+<p>于是我把截图抛过去了<br><img src="/img/aliyunwo.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">工程师：您好，查看端口是正常监听的，这个是不需要设置什么的，建议您提供服务器的ip地址和远程账号密码、端口，以便我们来登录检查，</div><div class="line">       问题处理后请您及时更改密码。注意：不需要提供登录阿里云控制台的帐号和密码。</div><div class="line">       我这登录核实一下，谢谢</div></pre></td></tr></table></figure></p>
+<p>OK没问题，你自家的东西你们很清楚，我上面也没什么，就编译了一个nginx而已，我把密码就发过去了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">工程师：看您的主机内部还存在防火墙设置配置的，我这边是否可以为您尝试关闭下，或者是您自行关闭下然后在查看下</div></pre></td></tr></table></figure></p>
+<p>我告诉他，随你怎么折腾，能用就行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">工程师：目前我们测试/etc/init.d/iptables和service以及systemctl都无法关闭您的防火墙，</div><div class="line">您是否如何安装的防火墙，建议您远程后关闭下您的防火墙重新测试核实下</div></pre></td></tr></table></figure></p>
+<p>这时我心中：excuse me？？？没看到关闭防火墙时都显示了failed 防火墙未加载么，明明都没开你跟我说关不掉？？？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">我：    防火墙压根就是关闭的，系统也是用你们的初始镜像debian8的，</div><div class="line">        并且也只是安装了nginx+mysql+php的环境，没有对防火墙什么的做过更改，我尝试卸掉iptables，并且成功了。</div><div class="line">        重启进入系统后，用python建立了个简单的http服务，但是这回不是拒绝了访问，是响应时间过长，</div><div class="line">        我不清楚你们的debian是不是做了什么黑科技魔改？</div><div class="line"></div><div class="line">工程师：  您好，阿里云提供的都是纯净的镜像，没有任何限制，我方测试您的服务器5000和7000端口都未监听，请您核实</div></pre></td></tr></table></figure></p>
+<p>我差点说，不想解决问题就明说，没必要这么玩套路，靠你还不如靠我自己。！！(╯°□°）╯︵┻━┻</p>
+<p>按照我个人的分析，要么是它母鸡的防火墙问题，要么它提供的debian镜像有问题，<br>于是我改用centos，和debian7，均正常，换回debian8，还是老问题，所以问题在于它所谓的“纯净的debian8系统”</p>
+<p>呵呵呵</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Aliyun-Bad-Work-Order/" data-id="cj7alywl9000c6s7aafqqo1g0" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Aliyun-Bad-Work-Order/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/Munin-setup/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Centos安装Munin服务器监控系统
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/TCP-BBR/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">TCP-BBR拥塞控制技术的简单分析及使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/Aliyun-Bad-Work-Order/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

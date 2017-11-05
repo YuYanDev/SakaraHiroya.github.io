@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="blog hexo">
+<meta property="og:type" content="website">
+<meta property="og:title" content="蔓舞寻樱的博客">
+<meta property="og:url" content="https://emiria.io/page/2/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="blog hexo">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蔓舞寻樱的博客">
+<meta name="twitter:description" content="blog hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Munin-setup" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Munin-setup/" class="article-date">
+  <time datetime="2016-12-31T14:34:00.000Z" itemprop="datePublished">2016-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/Munin-setup/">Centos安装Munin服务器监控系统</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>为什么窝选择Munin系统，原因很简单，安全，轻量快速，可分析性强。</p>
+<p>其实很多开源镜像站和一些老网站都采用这个系统，历史悠久，占用小，各种强悍的图表</p>
+<p>Munin分为监控机软件(munin)和被监控机软件(munin-node),两个，其中一台机器上必须都安装（作为监控机）其余机器安装munin-node即可</p>
+<p>安装非常简单。munin基于Perl，我们应该先装好perl全家桶。由于rrdtool在epel源里才有，所以我们应该提前设置epel源。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install munin munin-common munin-node rrdtool</div></pre></td></tr></table></figure></p>
+<p>这是两个非常重要的配置文件位置，关于如何增加节点在配置文件里都有配置说明和例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/etc/munin/munin.conf  #主监控机配置</div><div class="line">/etc/munin/munin-node.conf  #节点机器配置</div></pre></td></tr></table></figure></p>
+<p>有关nginx访问也很简单，munin安装好后，默认已经生成在<code>/var/www/html/munin/</code>下，我们只需把网站配置文件的location指向这个目录即可</p>
+<p>munin默认记录监控日志，并自动压缩储存在<code>/var/log/munin</code>下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service munin-node start</div></pre></td></tr></table></figure>
+<p>我在使用中发现一个巨大问题，就是网页不会刷新，于是尝试手动刷新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/munin-cron</div></pre></td></tr></table></figure></p>
+<p>但是返回这个错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">This program will easily break if you run it as root as you are</div><div class="line">trying now.  Please run it as user &apos;nobody&apos;.  The correct &apos;su&apos; command</div><div class="line">on many systems is &apos;su - munin --shell=/bin/bash&apos;</div><div class="line">Aborting.</div></pre></td></tr></table></figure></p>
+<p>OK,我们切换到munin用户，当再次执行的时候，又报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ERROR] Could not copy contents from /etc/munin/static/ to /[path to static file] at /usr/share/perl5/vendor_perl/Munin/Master/HTMLOld.pm line 716.</div></pre></td></tr></table></figure></p>
+<p>Google一圈，找到解决方案<a href="http://serverfault.com/questions/605226/munin-cron-unable-to-copy-contents" target="_blank" rel="external">http://serverfault.com/questions/605226/munin-cron-unable-to-copy-contents</a><br>明显是epel源那堆打包的工程师粗心好不好orz，好在可以结决了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">su - munin --shell=/bin/bash  #切换到munin用户</div><div class="line">chown -R munin:munin  /var/www/html/munin  #更改权限</div><div class="line">exit #返回root用户</div></pre></td></tr></table></figure>
+<p>等五分钟你就可以看到正常刷新了</p>
+<p>默认监听端口4949，多机集群别忘了放行端口。<br>
+        
+          <p class="article-more-link">
+            <a href="/post/Munin-setup/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Munin-setup/" data-id="cj7alywlh000l6s7awknm9owa" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Munin-setup/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Aliyun-Bad-Work-Order" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Aliyun-Bad-Work-Order/" class="article-date">
+  <time datetime="2016-12-30T13:36:00.000Z" itemprop="datePublished">2016-12-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/Aliyun-Bad-Work-Order/">关于阿里云糟糕的工单服务</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文除了暴露了一些阿里云的问题外，有些个人的情绪，故折叠。</p>
+        
+          <p class="article-more-link">
+            <a href="/post/Aliyun-Bad-Work-Order/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Aliyun-Bad-Work-Order/" data-id="cj7alywl9000c6s7aafqqo1g0" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Aliyun-Bad-Work-Order/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-TCP-BBR" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/TCP-BBR/" class="article-date">
+  <time datetime="2016-12-16T04:45:00.000Z" itemprop="datePublished">2016-12-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/TCP-BBR/">TCP-BBR拥塞控制技术的简单分析及使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>TCP-BBR技术是Google实现的一项技术，在其正式生产环境通过后在ACM queue期刊发表: <a href="http://queue.acm.org/detail.cfm?id=3022184" target="_blank" rel="external">http://queue.acm.org/detail.cfm?id=3022184</a> 并提交到了Linux主线中。<br>这项技术致力于实现在劣质网络下达到较高的稳定性和可用性。</p>
+<p>相信大家对CUCN 和 EAC-C2C 两条丢包率丧心病狂的海底光缆深有感触，许多好盆友都使用了例如锐速或者finalspeed等暴力发包软件来解决这个问题，这类软件虽然自己用得爽了，但是会加剧海底光缆的拥堵，以及可能导致由于你懂得的原因把IP给ban掉。</p>
+<p>在看了相关参考文章后，在这里来分析一下：<br>TCP-BBR技术呢，用了一种溢水原理的思想，来预判丢包率，调配发包速率。<br>假设你有一支较细的U形管，下面还有一堆不可溶的填塞物，你从一边开始大量灌水，如果另一边出水正常，你就可以继续加大灌水量，达到最大带宽。如果另一边发现水时断时有，就证明下面出现了随机拥堵，这时，你就要减小灌水量，等待水位落下。这时如果采用传统继续灌水时，也就会造成水溢出（丢包现象的产生）。所以这是真正的按需发包。当然，这一切是建立在系统预估的情况下。</p>
+<p>以实际情况说，也就是应用程序在创立会话时，这项技术会增加额外少量的的会话，这些会话用于检测带宽和延迟，根据网路设备返回的情况来分析网路质量（确认延迟和带宽口径，以及回避不易确认丢包类型）。另外，这项技术中，BBR接管了TCP的控制权。</p>
+<p>由于这项技术公布的时间也就一周左右，可能会出现许多不稳定和不科学的现象，期待更新以及Google更详细的doc。<br>知乎上的许多大牛也对这项内容进行了详细的分析 <a href="https://www.zhihu.com/question/53559433" target="_blank" rel="external">https://www.zhihu.com/question/53559433</a></p>
+<p>这里是几份权威的文章，较为详细的说明了TCP-BBR技术<br><a href="http://www.thequilt.net/wp-content/uploads/BBR-TCP-Opportunities.pdf" target="_blank" rel="external">http://www.thequilt.net/wp-content/uploads/BBR-TCP-Opportunities.pdf</a><br><a href="http://blog.cerowrt.org/post/bbrs_basic_beauty/" target="_blank" rel="external">http://blog.cerowrt.org/post/bbrs_basic_beauty/</a></p>
+<p>接下来是具体安装运用方面</p>
+        
+          <p class="article-more-link">
+            <a href="/post/TCP-BBR/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/TCP-BBR/" data-id="cj7alywll000p6s7at3qqmupx" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/TCP-BBR/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mbxo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/mbxo/" class="article-date">
+  <time datetime="2016-10-29T11:54:00.000Z" itemprop="datePublished">2016-10-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/mbxo/">mbxo 一款专为手机而生的hexo主题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 mobi.css 发布后，就有了这个想法，能不能做一个非常简洁的博客手机端，即使在 GPRS 网也能以一个不错的速度访问。</p>
+<p>于是乎， 8 月底，雏形完成啦，但是，第四次调试时老机器的硬盘出现了故障，就 gg 了。<br>于是开学了，于是军训，于是各种各样的事情，直到十月中，才用新电脑开始填坑（抽了两个晚自习写了出来 orz ）</p>
+<p>Github:<a href="https://github.com/Alleysakura/hexo-theme-mbxo" target="_blank" rel="external">https://github.com/Alleysakura/hexo-theme-mbxo</a><br>Demo:<a href="https://alleysakura.github.io/hexo-theme-mbxo/" target="_blank" rel="external">https://alleysakura.github.io/hexo-theme-mbxo/</a></p>
+        
+          <p class="article-more-link">
+            <a href="/post/mbxo/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/mbxo/" data-id="cj7alywm500116s7a6lytt37e" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/mbxo/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-HEnet-ipv6" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/HEnet-ipv6/" class="article-date">
+  <time datetime="2016-08-23T12:25:00.000Z" itemprop="datePublished">2016-08-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/HEnet-ipv6/">利用代理隧道接入HE.net的IPv6网</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>IPv6正在成为因特网的主流，但是，很多时候，无论是IDC还是ISP都不一定支持IPv6网络。但是IPv6的地址数量非常多，HE.net家拥有全球最大的IPv6网络，同时他家为了推广IPv6网络，推出了一项非常任性的服务23333333——利用代理隧道接入他家的v6网。<br><img src="/img/he.png" alt=""><br>
+        
+          <p class="article-more-link">
+            <a href="/post/HEnet-ipv6/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/HEnet-ipv6/" data-id="cj7alywle000i6s7a0sffh81b" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/HEnet-ipv6/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Hello-hbut" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Hello-hbut/" class="article-date">
+  <time datetime="2016-07-29T05:25:00.000Z" itemprop="datePublished">2016-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/Hello-hbut/">你好 大学</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><link rel="stylesheet" type="text/css" href="/css/ymplayer.css"></p>
+<script type="text/javascript" src="/js/ymplayer.js"></script>
+<ymplayer name="歌に形はないけれど">
+    <song src="https://htoio.b0.upaiyun.com/music/ene.mp3" song="歌に形はないけれど" artist="ENE" cover="https://htoio.b0.upaiyun.com/img/ene.png"></song>
+</ymplayer>
+<script type="text/javascript">
+    window.Ymplayer.Init();
+</script>
+
+<p>终于被录了～好开心，第一志愿学校，第一志愿专业。耶耶耶！<br>不过好悬，今年湖工录取线暴涨……按前三年的计算可以说稳进，可是今年，差点被退档，比最低分只高两分。</p>
+<p>进了想去的学校，进了想进的专业。会给我的计算机之路鼓足强大的信心～C，JAVA ，JS我会去攻略的（当然不会忘了Linux这个陪伴了我高中半数时光的好伙伴～）</p>
+<p>光阴似箭，这一切像梦一样，但又十分真实，现在是时候泻药一下了<br>
+        
+          <p class="article-more-link">
+            <a href="/post/Hello-hbut/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Hello-hbut/" data-id="cj7alywld000h6s7aexmnvpoy" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Hello-hbut/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CaddyServer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/CaddyServer/" class="article-date">
+  <time datetime="2016-07-16T07:54:00.000Z" itemprop="datePublished">2016-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/CaddyServer/">Caddy Server简易使用手册</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/img/caddy.jpg" alt=""><br>Caddy Server是一个用golang写的优秀web server，国内用户相对偏少，但我非常喜欢这个东西，所以来做个简易的手册。<br>它有许多nginx和apache没有的功能，不仅具有特色而且非常实用，比如简洁的conf，http/2，markdown渲染等等<br>要说它的缺点，就是效率不如前两者。</p>
+<p>本文会以下几块方面来介绍此服务器</p>
+<ul>
+<li>caddy安装及配置文件基本写法</li>
+<li>基本组成模块</li>
+<li>传统php+mysql建站</li>
+<li>caddy特色markdown建站</li>
+<li>反向代理引入更多后端系统</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/post/CaddyServer/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/CaddyServer/" data-id="cj7alywla000d6s7aorv9imst" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/CaddyServer/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Gogs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Gogs/" class="article-date">
+  <time datetime="2016-07-13T15:24:00.000Z" itemprop="datePublished">2016-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/Gogs/">Gogs:一个不错的GitWeb服务器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/img/gogs.png" alt=""><br>网址 ：<a href="https://gogs.io" target="_blank" rel="external">htttps://gogs.io</a><br>Gogs作为一个Git服务器，就目前来说已经足够成熟了。它简单易用，极少的bug，所以特别适合小公司及个人使用。<br>相比较Gitlab来说，这个更加轻量，所以我们可以使用树莓派，废旧电脑，或者一台不低于512mb内存的vps上搭一个</p>
+<p>相关安装文档官网已经写得非常清楚了，第三方的教程中，这有一篇比较优质的<a href="https://mynook.info/blog/post/host-your-own-git-server-using-gogs" target="_blank" rel="external">https://mynook.info/blog/post/host-your-own-git-server-using-gogs</a></p>
+<div class="tip"><br>在vps等机器跑gogs，需要我们使用screen或者tmux等工具来守护这个进程。<br></div>
+
+<p>接下来是博主脑洞大开，想出的对于gogs的一些实验性(<del>作死</del>)玩法。</p>
+        
+          <p class="article-more-link">
+            <a href="/post/Gogs/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Gogs/" data-id="cj7alywlb000f6s7axo0ybpcc" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Gogs/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-A-Good-MiniLinux" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/A-Good-MiniLinux/" class="article-date">
+  <time datetime="2016-07-02T12:57:00.000Z" itemprop="datePublished">2016-07-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/A-Good-MiniLinux/">一个值得尝试的小型linux发行版-TinyCore</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>TinyCore，一个有名的linux系统，以体积小而著称，在体验过着这个可爱的系统后，我爱上了它，但我们彼此之间还需要磨合。</p>
+<p>地址：<a href="http://www.tinycorelinux.net/" target="_blank" rel="external">http://www.tinycorelinux.net/</a><br><img src="/img/tinycore.png" alt=""><br>作者提供了三种版本的 Core，TinyCore，CorePlus</p>
+<p>个人呢，更倾向于core版，非常轻量，无图形界面（果然还是Terminal最有爱）加载迅速（512mb,hdd虚拟机5s内完成启动）<br>tinycore则是，加了图形界面的core版，coreplus则加入了更多组件</p>
+<p>使用core/tinycore的真正意义，则是用它来打造自己心目中最理想的Linux。它提供了最基本的功能，vi编辑器，make工具，gcc编译器，wget下载器等等，但多余的累赘根本没有。<br>它不像LFS一样，定制需要繁琐的交叉编译，也不像gentoo，虽然可定制化高，但毕竟已经有了自身的灵魂。</p>
+<p>这个系统，值得尝试（但好像被设计了在虚拟机里跑，因此，引导方面还需我们自行定制）<br>
+        
+          <p class="article-more-link">
+            <a href="/post/A-Good-MiniLinux/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/A-Good-MiniLinux/" data-id="cj7alywl6000a6s7a4v1crntz" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/A-Good-MiniLinux/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Sphider-Bugs-Fix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Sphider-Bugs-Fix/" class="article-date">
+  <time datetime="2016-06-22T13:45:00.000Z" itemprop="datePublished">2016-06-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/Sphider-Bugs-Fix/">Sphider搜索引擎的安装及Bug修复</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Sphider呢，是一个极其简单易上手的搜索引擎，相比起Nutch之类的JAVA搜索引擎来说，降低了普通站长的使用难度，同时节省了对于机器的开销！<br>虽然这个搜索引擎比较简陋（尤其前端23333）各种bug，以及万年不更新（大雾）等等，但我还是选择了它<br><a href="http://www.sphider.eu/" target="_blank" rel="external">地址:http://www.sphider.eu/</a><br>别问为什么，你去GitHub上看看就知道，不得不承认，上面有些源码写得的确好，但却没告诉我怎么用QAQ！！<br>有些是解析json的，有些干脆把json当数据库用，有些还要重新编译php加入额外分词组件 etc.</p>
+<p>好了以开始正题，如何去折腾这样一个搜索引擎~<br>首先，作者提供的Installation已经无法使用 <a href="http://www.sphider.eu/docs.php#installation" target="_blank" rel="external">http://www.sphider.eu/docs.php#installation</a><br>所以我来做一个具体的安装文档（我的运行环境 Nginx-1.11.1(SSL ON) Mysql5.5 PHP5.5)</p>
+        
+          <p class="article-more-link">
+            <a href="/post/Sphider-Bugs-Fix/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Sphider-Bugs-Fix/" data-id="cj7alywlk000o6s7ak0uu84mz" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Sphider-Bugs-Fix/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

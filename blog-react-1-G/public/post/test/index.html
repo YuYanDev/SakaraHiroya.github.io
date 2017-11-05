@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>树莓派(RaspberryPi)下LAMP服务器性能测试及实际生产  | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这东西性能情况如何呢？DDOS就不进行测试了，意义不大，天朝的网络上行质量放在那。正常打开都难更别说DDOS了…①首先是在完全运行LAMP时，内存占用达到50% 而平常跑图形也就30％，开HTML5网页网站达到70％ –LAMP的内存占用还是十分可观的，利用free命令和探针说明了这点，上图 ②然后是整数运算，浮点运算以及磁盘读写，探针选择与几家大型vps商的服务器进行比较，差距明显2Pi的性能是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派(RaspberryPi)下LAMP服务器性能测试及实际生产 ">
+<meta property="og:url" content="https://emiria.io/post/test/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="这东西性能情况如何呢？DDOS就不进行测试了，意义不大，天朝的网络上行质量放在那。正常打开都难更别说DDOS了…①首先是在完全运行LAMP时，内存占用达到50% 而平常跑图形也就30％，开HTML5网页网站达到70％ –LAMP的内存占用还是十分可观的，利用free命令和探针说明了这点，上图 ②然后是整数运算，浮点运算以及磁盘读写，探针选择与几家大型vps商的服务器进行比较，差距明显2Pi的性能是">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://emiria.io/img/589964438.jpg">
+<meta property="og:image" content="https://emiria.io/img/4283589046.jpg">
+<meta property="og:image" content="https://emiria.io/img/2156802286.jpg">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树莓派(RaspberryPi)下LAMP服务器性能测试及实际生产 ">
+<meta name="twitter:description" content="这东西性能情况如何呢？DDOS就不进行测试了，意义不大，天朝的网络上行质量放在那。正常打开都难更别说DDOS了…①首先是在完全运行LAMP时，内存占用达到50% 而平常跑图形也就30％，开HTML5网页网站达到70％ –LAMP的内存占用还是十分可观的，利用free命令和探针说明了这点，上图 ②然后是整数运算，浮点运算以及磁盘读写，探针选择与几家大型vps商的服务器进行比较，差距明显2Pi的性能是">
+<meta name="twitter:image" content="https://emiria.io/img/589964438.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/test/" class="article-date">
+  <time datetime="2015-07-06T22:42:00.000Z" itemprop="datePublished">2015-07-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      树莓派(RaspberryPi)下LAMP服务器性能测试及实际生产 
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这东西性能情况如何呢？<br>DDOS就不进行测试了，意义不大，天朝的网络上行质量放在那。正常打开都难更别说DDOS了…<br>①首先是在完全运行LAMP时，内存占用达到50% 而平常跑图形也就30％，开HTML5网页网站达到70％ –LAMP的内存占用还是十分可观的，利用free命令和探针说明了这点，上图<br><img src="/img/589964438.jpg" alt=""></p>
+<p>②然后是整数运算，浮点运算以及磁盘读写，探针选择与几家大型vps商的服务器进行比较，差距明显<br>2Pi的性能是四核ARM900MHz 1GbRAM,与实际数据比例差不多，io读写尽管用了高速TF卡但敌不过Raid阵列<br><img src="/img/4283589046.jpg" alt=""><br><code>Unixbench跑分测试</code><br>UnixBench是服务器常用的性能综合测试软件，在广大站长圈子里广泛流传，今天用树莓派来跑下这个试试，看看Pi2的实际性能情况<br>这个软件从浮点，整数，io，哈希等等进行了单线程，多线程测试<br><a id="more"></a><br>先下载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget http://teddysun.com/wp-content/uploads/unixbench.sh</div><div class="line">chmod +x unixbench.sh</div><div class="line">./unixbench.sh</div></pre></td></tr></table></figure></p>
+<p>等待时间可能比较长，这个小派花了近一小时……<br>测试结果惨不忍睹<br><img src="/img/2156802286.jpg" alt=""></p>
+<p>从解压速度也可以看出，解压typecho本conoha服务器1s不到而树莓派花了4s</p>
+<p>③网站实际运行速度，这里仍然使用了typecho来测试，为了尽可能增加负载，使用了含有大量的js元素的模板，用的是吟梦这位大神的杰作，实际内存占用并没有上升。</p>
+<p>④使用花生壳动态IP解析功能让小pi外网访问<br>去花生壳官网<a href="http://www.oray.com注册一个账号，再注册一个域名（推荐免费的），大多数路由器都内置了花生壳，再路由器内部登陆账号即可" target="_blank" rel="external">http://www.oray.com注册一个账号，再注册一个域名（推荐免费的），大多数路由器都内置了花生壳，再路由器内部登陆账号即可</a><br>做端口转发，每家的路由器方法不同，可以去官网查看<br><!--more--></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/test/" data-id="cj7alywmb001a6s7a0bmocge6" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/test/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/disqus/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Typecho部署调用Disqus评论系统
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/lamp/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">作死向:利用树莓派(RaspberryPi)打造LAMP服务器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/test/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>TCP-BBR拥塞控制技术的简单分析及使用 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="TCP-BBR技术是Google实现的一项技术，在其正式生产环境通过后在ACM queue期刊发表: http://queue.acm.org/detail.cfm?id=3022184 并提交到了Linux主线中。这项技术致力于实现在劣质网络下达到较高的稳定性和可用性。 相信大家对CUCN 和 EAC-C2C 两条丢包率丧心病狂的海底光缆深有感触，许多好盆友都使用了例如锐速或者finalspee">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP-BBR拥塞控制技术的简单分析及使用">
+<meta property="og:url" content="https://emiria.io/post/TCP-BBR/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="TCP-BBR技术是Google实现的一项技术，在其正式生产环境通过后在ACM queue期刊发表: http://queue.acm.org/detail.cfm?id=3022184 并提交到了Linux主线中。这项技术致力于实现在劣质网络下达到较高的稳定性和可用性。 相信大家对CUCN 和 EAC-C2C 两条丢包率丧心病狂的海底光缆深有感触，许多好盆友都使用了例如锐速或者finalspee">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TCP-BBR拥塞控制技术的简单分析及使用">
+<meta name="twitter:description" content="TCP-BBR技术是Google实现的一项技术，在其正式生产环境通过后在ACM queue期刊发表: http://queue.acm.org/detail.cfm?id=3022184 并提交到了Linux主线中。这项技术致力于实现在劣质网络下达到较高的稳定性和可用性。 相信大家对CUCN 和 EAC-C2C 两条丢包率丧心病狂的海底光缆深有感触，许多好盆友都使用了例如锐速或者finalspee">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-TCP-BBR" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/TCP-BBR/" class="article-date">
+  <time datetime="2016-12-16T04:45:00.000Z" itemprop="datePublished">2016-12-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      TCP-BBR拥塞控制技术的简单分析及使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>TCP-BBR技术是Google实现的一项技术，在其正式生产环境通过后在ACM queue期刊发表: <a href="http://queue.acm.org/detail.cfm?id=3022184" target="_blank" rel="external">http://queue.acm.org/detail.cfm?id=3022184</a> 并提交到了Linux主线中。<br>这项技术致力于实现在劣质网络下达到较高的稳定性和可用性。</p>
+<p>相信大家对CUCN 和 EAC-C2C 两条丢包率丧心病狂的海底光缆深有感触，许多好盆友都使用了例如锐速或者finalspeed等暴力发包软件来解决这个问题，这类软件虽然自己用得爽了，但是会加剧海底光缆的拥堵，以及可能导致由于你懂得的原因把IP给ban掉。</p>
+<p>在看了相关参考文章后，在这里来分析一下：<br>TCP-BBR技术呢，用了一种溢水原理的思想，来预判丢包率，调配发包速率。<br>假设你有一支较细的U形管，下面还有一堆不可溶的填塞物，你从一边开始大量灌水，如果另一边出水正常，你就可以继续加大灌水量，达到最大带宽。如果另一边发现水时断时有，就证明下面出现了随机拥堵，这时，你就要减小灌水量，等待水位落下。这时如果采用传统继续灌水时，也就会造成水溢出（丢包现象的产生）。所以这是真正的按需发包。当然，这一切是建立在系统预估的情况下。</p>
+<p>以实际情况说，也就是应用程序在创立会话时，这项技术会增加额外少量的的会话，这些会话用于检测带宽和延迟，根据网路设备返回的情况来分析网路质量（确认延迟和带宽口径，以及回避不易确认丢包类型）。另外，这项技术中，BBR接管了TCP的控制权。</p>
+<p>由于这项技术公布的时间也就一周左右，可能会出现许多不稳定和不科学的现象，期待更新以及Google更详细的doc。<br>知乎上的许多大牛也对这项内容进行了详细的分析 <a href="https://www.zhihu.com/question/53559433" target="_blank" rel="external">https://www.zhihu.com/question/53559433</a></p>
+<p>这里是几份权威的文章，较为详细的说明了TCP-BBR技术<br><a href="http://www.thequilt.net/wp-content/uploads/BBR-TCP-Opportunities.pdf" target="_blank" rel="external">http://www.thequilt.net/wp-content/uploads/BBR-TCP-Opportunities.pdf</a><br><a href="http://blog.cerowrt.org/post/bbrs_basic_beauty/" target="_blank" rel="external">http://blog.cerowrt.org/post/bbrs_basic_beauty/</a></p>
+<p>接下来是具体安装运用方面</p>
+<a id="more"></a>
+<p>Linux kernel 4.9已经加入了，我们只需要更新下内核并启用就行了</p>
+<p>更新内核有风险，许多vps都有镜像功能，请镜像一份disk，如果你是单点服务器，也请做好备份！！</p>
+<p>这里是公布的是基于do的Debian8适用的，其他发行版Google一下，如果arch什么的就等下次滚动更新吧233333</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.9-rc8/linux-image-4.9.0-040900rc8-generic_4.9.0-040900rc8.201612051443_amd64.deb</div><div class="line"></div><div class="line">dpkg -i linux-image-4.9.0*.deb   #安装内核</div><div class="line"></div><div class="line">dpkg -l|grep linux-image  #查看服务器上已存在的内核</div><div class="line"></div><div class="line">apt-get purge linux-image-3.16.0-4-amd64 #替换成自己的旧内核名称即可，</div><div class="line">（可能会有提示另外一个` linux-image-amd64 ` 内核也要删掉，那就删掉吧。</div><div class="line"></div><div class="line">关于Abort kernel removal选择 No</div><div class="line"></div><div class="line">update-grub  #更新引导</div><div class="line"></div><div class="line">reboot #重启</div></pre></td></tr></table></figure>
+<p>重启进入系统后，先 <code>uname -a</code> 一下看看内核是否更新成功</p>
+<p>然后执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">echo &quot;net.core.default_qdisc=fq&quot; &gt;&gt; /etc/sysctl.conf</div><div class="line">echo &quot;net.ipv4.tcp_congestion_control=bbr&quot; &gt;&gt; /etc/sysctl.conf</div><div class="line">sysctl -p</div></pre></td></tr></table></figure></p>
+<p>校验一下 执行 <code>sysctl net.ipv4.tcp_available_congestion_control</code> 返回值有bbr。<br>执行 <code>lsmod | grep bbr</code> 返回值有tcp_bbr。</p>
+<p>最后再重启一下就可以啦ovo</p>
+<p>当你看到这篇文章时，你已经享受到了TCP-BBR技术所带来的速度了。以下是一些须注意的坑</p>
+<p>从kernel官网下的内核更新包仅支持老内核版本在4.3以上的机器更新，所以我们应该使用Ubuntu源的<br>不同系统的grub配置文件可能不一样，灵活处理。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/TCP-BBR/" data-id="cj7alywll000p6s7at3qqmupx" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/TCP-BBR/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/Aliyun-Bad-Work-Order/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于阿里云糟糕的工单服务
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/mbxo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">mbxo 一款专为手机而生的hexo主题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/TCP-BBR/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Kali在树莓派上的调教笔记 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一个偶然的时刻，我发现某个地方的IP是开放80和443端口的，那如果不好好利用一下简直太可惜了。当然，人家可是良民，当然会遵守国家的法律法规啦，那废话就不多说了。 小插曲：好久不用raspbian了，刷好镜像通电后才知道raspbian已经在一年前就已经默认关闭了ssh，没ssh那玩个鬼。 索性放弃raspbian，那么目前有Ubuntu Mate，Kali OS，Arch Linux三个系统供我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kali在树莓派上的调教笔记">
+<meta property="og:url" content="https://emiria.io/post/Kali-raspberry/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="一个偶然的时刻，我发现某个地方的IP是开放80和443端口的，那如果不好好利用一下简直太可惜了。当然，人家可是良民，当然会遵守国家的法律法规啦，那废话就不多说了。 小插曲：好久不用raspbian了，刷好镜像通电后才知道raspbian已经在一年前就已经默认关闭了ssh，没ssh那玩个鬼。 索性放弃raspbian，那么目前有Ubuntu Mate，Kali OS，Arch Linux三个系统供我">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://emiria.io/img/kalirasp.png">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kali在树莓派上的调教笔记">
+<meta name="twitter:description" content="一个偶然的时刻，我发现某个地方的IP是开放80和443端口的，那如果不好好利用一下简直太可惜了。当然，人家可是良民，当然会遵守国家的法律法规啦，那废话就不多说了。 小插曲：好久不用raspbian了，刷好镜像通电后才知道raspbian已经在一年前就已经默认关闭了ssh，没ssh那玩个鬼。 索性放弃raspbian，那么目前有Ubuntu Mate，Kali OS，Arch Linux三个系统供我">
+<meta name="twitter:image" content="https://emiria.io/img/kalirasp.png">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Kali-raspberry" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Kali-raspberry/" class="article-date">
+  <time datetime="2017-06-25T15:57:00.000Z" itemprop="datePublished">2017-06-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Kali在树莓派上的调教笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个偶然的时刻，我发现某个地方的IP是开放80和443端口的，那如果不好好利用一下简直太可惜了。当然，人家可是良民，当然会遵守国家的法律法规啦，那废话就不多说了。</p>
+<p>小插曲：好久不用raspbian了，刷好镜像通电后才知道raspbian已经在一年前就已经默认关闭了ssh，没ssh那玩个鬼。</p>
+<p>索性放弃raspbian，那么目前有Ubuntu Mate，Kali OS，Arch Linux三个系统供我选择，Ubuntu Mate也是需要通过显示器设定，故放弃；Arch Linux arm安装需要用到linux的机子；所以选择了Kali OS。<br><a id="more"></a><br>这是Kali的安装指导页面<a href="https://docs.kali.org/introduction/download-official-kali-linux-images" target="_blank" rel="external">https://docs.kali.org/introduction/download-official-kali-linux-images</a>里面包括了自定义构建镜像的方法和已构建好的镜像的下载链接。<br>也可以直接从这个页面寻获下载链接<a href="https://www.offensive-security.com/kali-linux-arm-images/" target="_blank" rel="external">https://www.offensive-security.com/kali-linux-arm-images/</a></p>
+<p>接下啦是刻录的方式，我的本子是OS X的系统，所以我写的是该系统的烧录方式</p>
+<ol>
+<li><p>下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget https://images.offensive-security.com/arm-images/kali-2017.01-rpi2.img.xz</div><div class="line">unxz kali-2017.01-rpi2.img.xz</div><div class="line">mv kali-2017.01-rpi2.img ~/</div></pre></td></tr></table></figure>
+</li>
+<li><p>打开OS X的自带的磁盘工具，将tf卡格式化成MS-DOS(FAT)格式的。</p>
+</li>
+<li>用<code>df -h</code>命令找到你的tf卡的挂在地址.</li>
+<li>假设我的是<code>/dev/disk2s1</code>，就执行<code>diskutil unmount /dev/disk2s1</code>，以此类推。</li>
+<li>执行<code>diskutil list</code>来找到tf卡，假设我返回来的是<code>/dev/disk2</code></li>
+<li>使用dd命令来刻录<code>sudo dd bs=4m if=kali-2017.01-rpi2.img of=/dev/rdisk2</code>，注意of后指向的disk要加上r。刻录时间稍长，多等等。最后会打印record和transferred信息的。</li>
+<li>最后<code>diskutil unmountDisk /dev/disk2</code>来推出设备，就可以插上树莓派了。</li>
+</ol>
+<p>这时，把树莓派接上网线。登入你的路由器控制面板。有以下几件事需要做</p>
+<ol>
+<li>打开客户端列表，查看主机名为kali设备的内网IP地址和MAC地址</li>
+<li>打开保留列表，将记录下来的内网IP和MAC地址绑定</li>
+<li>打开端口转发列表，将80和443或者其他端口转发至内网IP，协议默认即可，也可指定。</li>
+<li>如果路由器自带ddns服务的话，也可以设定。</li>
+</ol>
+<p>好了，这个时候，我们可以登入Kali了，官方打包的系统，默认使用root用户。密码toor。登入后修改密码。</p>
+<p>第一步先换源，树莓派版本的Kali是基于kali-rolling构建的，所以我们在修改软件源时要务必注意和检查<br>比如清华tuna源，在<code>https://mirrors.tuna.tsinghua.edu.cn/kali/dists/</code>里有<code>kali-rolling</code>所以理论上是可以用这个源的（当然的确是可以用的）<br>编辑镜像源列表<code>nano /etc/apt/sources.list</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main non-free contrib</div><div class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main non-free contrib</div><div class="line"></div><div class="line">deb http://http.kali.org/kali kali-rolling main non-free contrib</div><div class="line">deb-src http://http.kali.org/kali kali-rolling main non-free contrib</div></pre></td></tr></table></figure></p>
+<p>刷新一下<code>apt-get update</code></p>
+<p>接下来是安装nginx的部分，由于对树莓派操纵数据库的阴影，(可以查看本博客最早的那些文章)所以不打算安装数据库，我不会写php，所以也没必要安装php。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">apt-get install -y unzip curl build-essential make gcc libpcre3 libpcre3-dev libpcre++-dev zlib1g-dev libbz2-dev libxslt1-dev libxml2-dev libgd2-xpm-dev libgeoip-dev libgoogle-perftools-dev libperl-dev libssl-dev</div><div class="line">wget https://www.openssl.org/<span class="built_in">source</span>/openssl-1.0.2l.tar.gz</div><div class="line">wget http://nginx.org/download/nginx-1.12.0.tar.gz</div><div class="line">tar -zxvf openssl-1.0.2l.tar.gz</div><div class="line">tar -zxvf nginx-1.12.0.tar.gz</div><div class="line"><span class="built_in">cd</span> nginx-1.12.0</div><div class="line"></div><div class="line">./configure \</div><div class="line">--prefix=/etc/nginx                                                \</div><div class="line">--sbin-path=/usr/sbin/nginx                                        \</div><div class="line">--conf-path=/etc/nginx/nginx.conf                                  \</div><div class="line">--error-log-path=/var/<span class="built_in">log</span>/nginx/error.log                          \</div><div class="line">--http-log-path=/var/<span class="built_in">log</span>/nginx/access.log                          \</div><div class="line">--pid-path=/var/run/nginx.pid                                      \</div><div class="line">--lock-path=/var/run/nginx.lock                                    \</div><div class="line">--http-client-body-temp-path=/var/cache/nginx/client_temp          \</div><div class="line">--http-proxy-temp-path=/var/cache/nginx/proxy_temp                 \</div><div class="line">--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp             \</div><div class="line">--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp                 \</div><div class="line">--http-scgi-temp-path=/var/cache/nginx/scgi_temp                   \</div><div class="line">--user=nginx                                                       \</div><div class="line">--group=nginx                                                      \</div><div class="line">--with-openssl=../openssl-1.0.2l                                   \</div><div class="line">--with-http_ssl_module                                             \</div><div class="line">--with-http_realip_module                                          \</div><div class="line">--with-http_addition_module                                        \</div><div class="line">--with-http_sub_module                                             \</div><div class="line">--with-http_dav_module                                             \</div><div class="line">--with-http_flv_module                                             \</div><div class="line">--with-http_mp4_module                                             \</div><div class="line">--with-http_gunzip_module                                          \</div><div class="line">--with-http_gzip_static_module                                     \</div><div class="line">--with-http_random_index_module                                    \</div><div class="line">--with-http_secure_link_module                                     \</div><div class="line">--with-http_stub_status_module                                     \</div><div class="line">--with-http_auth_request_module                                    \</div><div class="line">--with-file-aio                                                    \</div><div class="line">--with-http_v2_module                                              \</div><div class="line">--with-threads                                                     \</div><div class="line">--with-stream                                                      \</div><div class="line">--with-stream_ssl_module                                           \</div><div class="line">--with-http_slice_module</div><div class="line"></div><div class="line">make &amp;&amp; make install</div><div class="line">useradd -r nginx</div><div class="line">mkdir /var/cache/nginx</div><div class="line">touch /var/cache/nginx/client_temp</div></pre></td></tr></table></figure>
+<p>这时我们再创建一个systemctl启动脚本<code>nano /lib/systemd/system/nginx.service</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[Unit]</div><div class="line">Description=The NGINX HTTP and reverse proxy server</div><div class="line">After=syslog.target network.target remote-fs.target nss-lookup.target</div><div class="line"></div><div class="line">[Service]</div><div class="line">Type=forking</div><div class="line">PIDFile=/var/run/nginx.pid</div><div class="line">ExecStartPre=/usr/sbin/nginx -t</div><div class="line">ExecStart=/usr/sbin/nginx</div><div class="line">ExecReload=/bin/<span class="built_in">kill</span> -s HUP <span class="variable">$MAINPID</span></div><div class="line">ExecStop=/bin/<span class="built_in">kill</span> -s QUIT <span class="variable">$MAINPID</span></div><div class="line">PrivateTmp=<span class="literal">true</span></div><div class="line"></div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure></p>
+<p>就可以启动<code>systemctl start nginx</code></p>
+<p>接下来，我们去/etc/nginx里编辑脚本就可以啦,博客之前的文章也有。node还没有装，不过后续可能会更新吧。<br><img src="/img/kalirasp.png" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Kali-raspberry/" data-id="cj7alywlg000k6s7aa8wirt6t" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Kali-raspberry/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/fcgi/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/HBUT-2ACM/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HBUT 2nd ACM Contest</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/Kali-raspberry/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

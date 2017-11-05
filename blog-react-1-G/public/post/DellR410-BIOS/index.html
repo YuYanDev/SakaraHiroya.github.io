@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Dell R410服务器踩坑总结 | 蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="翘了大学语文课去机房上架服务器被语文老师抓到，这种事情一定是终生难忘的（哭）。 好了，以下来介绍所踩的坑。 某202.xxx.xxx.xxx/28的ip是我们社团的服务器所使用，但由于年久失修，宕了只有一台了orz，于是fix的这个任务就落到了我的头上了orz。 由于是接手的，只留下了一个记录了密码和用户名什么的文档来，只能靠自己摸索，架构是多台Apache+php环境组成的集群和一台数据库服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dell R410服务器踩坑总结">
+<meta property="og:url" content="https://emiria.io/post/DellR410-BIOS/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="翘了大学语文课去机房上架服务器被语文老师抓到，这种事情一定是终生难忘的（哭）。 好了，以下来介绍所踩的坑。 某202.xxx.xxx.xxx/28的ip是我们社团的服务器所使用，但由于年久失修，宕了只有一台了orz，于是fix的这个任务就落到了我的头上了orz。 由于是接手的，只留下了一个记录了密码和用户名什么的文档来，只能靠自己摸索，架构是多台Apache+php环境组成的集群和一台数据库服务器">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-07T15:29:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dell R410服务器踩坑总结">
+<meta name="twitter:description" content="翘了大学语文课去机房上架服务器被语文老师抓到，这种事情一定是终生难忘的（哭）。 好了，以下来介绍所踩的坑。 某202.xxx.xxx.xxx/28的ip是我们社团的服务器所使用，但由于年久失修，宕了只有一台了orz，于是fix的这个任务就落到了我的头上了orz。 由于是接手的，只留下了一个记录了密码和用户名什么的文档来，只能靠自己摸索，架构是多台Apache+php环境组成的集群和一台数据库服务器">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-DellR410-BIOS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/DellR410-BIOS/" class="article-date">
+  <time datetime="2017-03-03T15:10:00.000Z" itemprop="datePublished">2017-03-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Dell R410服务器踩坑总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翘了大学语文课去机房上架服务器被语文老师抓到，这种事情一定是终生难忘的（哭）。</p>
+<p>好了，以下来介绍所踩的坑。</p>
+<p>某202.xxx.xxx.xxx/28的ip是我们社团的服务器所使用，但由于年久失修，宕了只有一台了orz，于是fix的这个任务就落到了我的头上了orz。</p>
+<p>由于是接手的，只留下了一个记录了密码和用户名什么的文档来，只能靠自己摸索，架构是多台Apache+php环境组成的集群和一台数据库服务器组成，具体配置无法测试（基本的命令都缺失，有必要全部重做系统了），内网带宽实测100mbps。但数据库服务器的raid早已坏掉，各种丢数据，唯一剩下来的一台也不敢动，于是，只能贡献出我自己的R410了。</p>
+<p>R410的网卡是博通一种服务器网卡，很可惜Debian初始并不带网卡驱动，需要后续在没网的情况下手动安装，故舍弃Debian。Ubuntu 16.04.2 LTS在写入系统时又发生失败。centos才是最适合R410的系统orz。</p>
+<p>R410集成了非常强大的BIOS和远控卡，然而正是强大，导致了使用不是很方便，个人非常不推荐使用UEFI引导，而且也非常不好用。<br>在不小心按了F10进入了UEFI后，你将会经历漫长的等待，看着<code>Initializing UEFI,Please wait...</code>(&gt;=1hr)，而且极有可能加载失败。所以我们要做的就是，关闭电源，再开启电源，加载完BIOS后迅速按下Ctrl 和E键，进入菜单，进入System Services选项菜单里并把它关掉。保存退出，继续加载bios的过程中再去F11里选择u盘启动。</p>
+<p>安装完centos后有个非常恶心的阅读协议，这个只能Good luck了。在实际上架服务器中，我们不可能使用DHCP协议获取ip，只能手动配置ip，在参考另外一台服务器的配置文件后顺利完成了ip的配置，其实图形化界面下的centos配置防火墙很容易23333333</p>
+<p>PS：机房老师中途进来看到raid的配置和机器上4个盘位只插了一块盘有点想笑，我能怎么办，我也没钱买硬盘哇(╯‵□′)╯︵┻━┻</p>
+<a id="more"></a>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/DellR410-BIOS/" data-id="cj7alywla000e6s7a9a1cnyay" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/DellR410-BIOS/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/docker_cn/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          在墙内部署docker镜像的正确姿势
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/Omega2-Getstart/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Omega2Plus上手体验</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  var disqus_url = 'https://emiria.io/post/DellR410-BIOS/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

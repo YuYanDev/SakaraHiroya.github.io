@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="blog hexo">
+<meta property="og:type" content="website">
+<meta property="og:title" content="蔓舞寻樱的博客">
+<meta property="og:url" content="https://emiria.io/page/3/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="blog hexo">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蔓舞寻樱的博客">
+<meta name="twitter:description" content="blog hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-NewStart" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/NewStart/" class="article-date">
+  <time datetime="2016-06-08T12:44:00.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/NewStart/">我又回来啦!</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原地满血复活2333333</p>
+<p>这个假期,我将完整自己的linux知识体系,准备ccna考试,同时开始学习javascript.<br>对博客将会有一个全新的优化和界面的更改,请期待~</p>
+<p>三个月内,发生了很多,我依然没有停止做死,而是尝试了一些新的机器prpr,也收获了一些经验.相关内容陆续会写的qaq</p>
+<p>恩就这样吧~<br>
+        
+          <p class="article-more-link">
+            <a href="/post/NewStart/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/NewStart/" data-id="cj7alywli000m6s7adh634k8d" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/NewStart/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-something-about-ssl-handshake" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/something-about-ssl-handshake/" class="article-date">
+  <time datetime="2016-02-20T06:49:00.000Z" itemprop="datePublished">2016-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/something-about-ssl-handshake/">针对HTTP/2的一些优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>HTTP/2现在来说已经不新鲜了,很多博客第一时间都用上了HTTP/2.但是里面有很多小细节值得推敲!</p>
+<p>很多人打开chrome的控制台一看,WoW~ h2启用成功了.实际上并不然,这只代表了服务器给你发出了HTTP/2的CipherSuite,不一定真的启用了HTTP/2.但是我们可以用抓包工具来check.这个就不详细说明了.看使用文档去23333333<br>但我们可以用更简单的方法来检验-&gt;SSLLABS<a href="https://ssllabs.com" target="_blank" rel="external">https://www.ssllabs.com</a>这是一款在线的ssl检测的网站,权威且专业.<br>检测完毕后,我们可以查看Handshake Simulation,从IE6到最新的Edge都有<br>如果没有使用HTTP/2,则显示<br><code>TLS 1.2 &gt; http/1.1</code><br>如果HTTP/2启用成功,则显示<br><code>TLS 1.2 &gt; h2</code></p>
+<p>如果算法调不好,甚至还会出现Chrome和ff无法访问的情况<br>如何正确的使用HTTP/2.关于握手算法我推荐<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssl_ciphers  ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:AES256-GCM-SHA384;</div></pre></td></tr></table></figure></p>
+<p>如果你使用了BoringSSL 我推荐<a href="https://www.imququ.com" target="_blank" rel="external">JerryQu</a>提供的算法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssl_ciphers [ECDHE-ECDSA-AES128-GCM-SHA256|ECDHE-ECDSA-CHACHA20-POLY1305]:[ECDHE-RSA-AES128-GCM-SHA256|ECDHE-RSA-CHACHA20-POLY1305]:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:AES256-GCM-SHA384:DES-CBC3-SHA;</div></pre></td></tr></table></figure></p>
+<p>另外,博主发现了几个BoringSSL的bug,希望大家注意!<br>1:BoringSSL下,nginx-ct模块目前处于失效状态,无法启用<br>2:安装好后编译nginx时会报错<br><code>|| n == SSL_R_NO_CIPHERS_SPECIFIED              /*183*/</code><br>解决方案 <code>nano ./src/event/ngx_event_openssl.c</code> ,然后删除这一行<br>另外,关于食用BoringSSL的方法,以及另外的一个BUG.可以查看JerryQu的文章<a href="https://imququ.com/post/optimize-ssl-ciphers-with-boringssl.html" target="_blank" rel="external">https://imququ.com/post/optimize-ssl-ciphers-with-boringssl.html</a><br>
+        
+          <p class="article-more-link">
+            <a href="/post/something-about-ssl-handshake/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/something-about-ssl-handshake/" data-id="cj7alywmb00186s7axajcfg4j" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/something-about-ssl-handshake/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-A-Shadowsock-Bug" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/A-Shadowsock-Bug/" class="article-date">
+  <time datetime="2016-02-12T01:32:15.000Z" itemprop="datePublished">2016-02-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/A-Shadowsock-Bug/">一个Shadowsock Bug</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这个bug发现于安装shadowsock-qt5客户端时</p>
+<p>由于debian没有ppa源的支持，我们只能用dpkg手动构建shadowsock-qt5，那么问题来了…..<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install qt5-qmake qtbase5-dev libqrencode-dev libqtshadowsocks-dev libappindicator-dev libzbar-dev libbotan1.10-dev</div></pre></td></tr></table></figure></p>
+<p>debian源里木有这个<code>libqtshadowsocks-dev</code> QAQ</p>
+<p>好在Github有libqtshadowsocks <a href="https://github.com/shadowsocks/libQtShadowsocks" target="_blank" rel="external">https://github.com/shadowsocks/libQtShadowsocks</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install qt5-qmake qtbase5-dev libbotan1.10-dev</div><div class="line">dpkg-buildpackage -uc -us -b</div></pre></td></tr></table></figure></p>
+<p>恩，正常，但是安装时 报错了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dpkg-split：错误：读取 libqtshadowsocks 时出错: 是一个目录 #理论上包管理器已经纠正</div><div class="line">dpkg:../../src/unpack.c:123:deb_reassemble: 内部错误：unexpected exit status 2 from dpkg-split</div></pre></td></tr></table></figure></p>
+<p>查找到两个bug反映，可以推测是ss的问题</p>
+<p>至此在debian下构建ss客户端只能通过手动编译的方式，强行PPA源的方式不推荐，也不期望…..<br>
+        
+          <p class="article-more-link">
+            <a href="/post/A-Shadowsock-Bug/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/A-Shadowsock-Bug/" data-id="cj7alywl8000b6s7abrq31wbe" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/A-Shadowsock-Bug/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2016NewYear" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/2016NewYear/" class="article-date">
+  <time datetime="2016-02-08T15:00:00.000Z" itemprop="datePublished">2016-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/2016NewYear/">谨贺新年</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/img/2016newyear.jpg" alt=""><br>  写点什么好呢？…..</p>
+<p>  首先，祝大家新年快乐！ (〃＾∇＾)</p>
+<p>  博客差不多快一年了，跟上了全民https的潮流，服务器也从bandwagonhost迁移到conoha最终迁移到现在的Linode，从typecho转向了hexo，并组建了御坂网络，构建了具有监控能力的小型集群。<br>  其实主题已经开发完成，但由于平板兼容性和css&amp;js文件过大的原因，未能启用，故选择了当前主题，并进行了优化。感谢主题作者提供的后续支持。<br>
+        
+          <p class="article-more-link">
+            <a href="/post/2016NewYear/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/2016NewYear/" data-id="cj7alywkw00036s7a7u94xgu4" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/2016NewYear/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-new-docker" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/new-docker/" class="article-date">
+  <time datetime="2015-12-31T18:45:23.000Z" itemprop="datePublished">2016-01-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/new-docker/">新年新气象，全新的服务器环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!--markdown-->终于把这个坑填了，趁着元旦3天假期。<br>CentOS6.6 + Nginx-1.8.0(with spdy3.1) + MySQL5.5 + PHP7.0.1<br><br>nginx+spdy3.1的速度感觉的确是比apache快的，尤其是启用了gzip之后。<br><br>好多人吐槽窝的网站环境比较奇葩（nginx去编译，而MySQL和PHP用包管理器），但这是按窝的偏好来配置的23333333。包管理器方便省时，nginx编译又可以增加一些其他的模块。<br><br>至于为何不编译nginx1.9.9 with HTTP/2。原因很简单，ssl加密算法兼容性还不够好。<br><br>感谢epel,remi,atomic源的支持。<br>
+        
+          <p class="article-more-link">
+            <a href="/post/new-docker/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/new-docker/" data-id="cj7alywm700146s7arpgnai38" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/new-docker/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-win-s-2012-r2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/win-s-2012-r2/" class="article-date">
+  <time datetime="2015-12-26T23:49:00.000Z" itemprop="datePublished">2015-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/win-s-2012-r2/">体验Windows service 2012 R2/ /一些其他内容更新</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><!--markdown--> 1. Nginx不在需要手动patch去启用http/2了<br> 2. IIS8.5/10安装需要2GB以上内存（被坑了…）IIS10现已支持http/2<br> 3. 各Linux发行版的pcre与zlib库安装方法不一<br>    |– For Ubuntu/Debian<br>    <pre><code class="language-shell">apt-get install zlib1g.dev<br>apt-get install libpcre3 libpcre3-dev</code></pre><br>    |– For RedHat/CentOS<br>    <pre><code class="language-shell">yum install zlib-devel<br>yum install pcre-devel</code></pre><br>    |– For Freebsd<br>    <pre><code class="language-shell">自行编译吧……天朝的网络不适合pkg…更何况10.1不自带pkg</code></pre></p>
+<p>##体验Windows service 2012 R2</p>
+<p>一直说把静态文件搬回国内，<del>阿里云流量计费100mb带宽很合算，走443无需备案</del></p>
+<p>然而IIS需要2Gb以上内存，放弃……(nginx Windows 组件太少)</p>
+<p>转向debian，除了http2问题外，其他都好，下周重新编译，改用spdy3.1</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/win-s-2012-r2/" data-id="cj7alywme001c6s7aps3lqf3s" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/win-s-2012-r2/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-update-Jessie" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/update-Jessie/" class="article-date">
+  <time datetime="2015-11-27T17:54:00.000Z" itemprop="datePublished">2015-11-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/update-Jessie/">给树莓派滚到了Jessie</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!--markdown-->难得周六不补课，折腾一下小pi，性能优化一下。<br>这次是在pi2上进行的，老的b+版编译到kernel4.3内核后，操作还好好的，然后滚Jessie的时候就滚挂了，原因不详………<br><br> 1. 移除web相关组件<br> 2. 精简系统<br> 3. 升级系统<br> 4. 再次精简优化<br> 5. 配置vim<br> 6. 无   #差点把桌面换成了gnome<br>
+        
+          <p class="article-more-link">
+            <a href="/post/update-Jessie/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/update-Jessie/" data-id="cj7alywmd001b6s7abqvhr02k" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/update-Jessie/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-shell-study1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/shell-study1/" class="article-date">
+  <time datetime="2015-11-08T09:21:00.000Z" itemprop="datePublished">2015-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/shell-study1/">Shell学习笔记(1)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+<p>为何要学习Shell，不说了，懒人必备，大多数一键安装包都是用shell写的，今天开坑了。<br>简单的大家都会玩，一个简单的例子说明一切<br>For example 重启一下lamp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">service httpd restart</div><div class="line">service mysqld restart</div><div class="line">service php-fpm restart</div><div class="line">echo &quot;Lamp restart complete&quot;</div></pre></td></tr></table></figure></p>
+<p>这样大家都会，所以我们所要学习的，就是交互式shell，比如今天学会的这个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">PIDNUM=$(pgrep httpd | wc -l) #检测apache进程</div><div class="line">if [[ $PIDNUM -eq 0 ]];then #检测apache的pid状态</div><div class="line">          echo &quot;Apache is stopped.&quot;</div><div class="line">          service httpd start</div><div class="line">else</div><div class="line">          echo &quot;Apache is running.&quot;</div><div class="line">fi</div></pre></td></tr></table></figure></p>
+<p>这样我们的脚本就聪明多了<br>这次学到的东西，就是用$去定义一个活动，（检查pid 启动apache），以及if条件句的使用。当然我们还可以输出一个apache的pid号，方便使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo &quot;Proccess number is $PIDNUM.&quot;</div></pre></td></tr></table></figure></p>
+<p>23333333</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/shell-study1/" data-id="cj7alywma00176s7a8k7d8vrm" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/shell-study1/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ghost-play" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/ghost-play/" class="article-date">
+  <time datetime="2015-10-24T16:20:00.000Z" itemprop="datePublished">2015-10-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/ghost-play/">ghost博客新玩法&amp;迁移,备份教程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>告别反人类的forever吧</p>
+<p>前几天把千反田迁去了搬瓦工……搬迁时出了很多问题。现在总结一下如何搬迁……<br>
+        
+          <p class="article-more-link">
+            <a href="/post/ghost-play/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/ghost-play/" data-id="cj7alywm3000y6s7ajdfgfxf0" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/ghost-play/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-VSC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/VSC/" class="article-date">
+  <time datetime="2015-10-04T06:30:00.000Z" itemprop="datePublished">2015-10-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/VSC/">Visual Studio Code初体验</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!--markdown-->今年早期的时候，<del>巨硬</del>发布了这款编辑器，跨平台，支持多种编程语言，据说未来还会提供插件支持（像Atom一样）无奈系统装的是32bit的，无缘Atom（<del>主要是懒得折腾</del>）<br>一开始是打算Sublime Text的，后来有个小伙伴推荐了这个编辑器，（据说更专业，看起来也是，嗯 ∑(O_O;) ）<br>
+        
+          <p class="article-more-link">
+            <a href="/post/VSC/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/VSC/" data-id="cj7alywlm000q6s7aez7138p0" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/VSC/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

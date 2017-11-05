@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>蔓舞寻樱的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="blog hexo">
+<meta property="og:type" content="website">
+<meta property="og:title" content="蔓舞寻樱的博客">
+<meta property="og:url" content="https://emiria.io/index.html">
+<meta property="og:site_name" content="蔓舞寻樱的博客">
+<meta property="og:description" content="blog hexo">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蔓舞寻樱的博客">
+<meta name="twitter:description" content="blog hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="蔓舞寻樱的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">蔓舞寻樱的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">みんなで実现の物语 - μ&#39;s</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://emiria.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-fcgi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/fcgi/" class="article-date">
+  <time datetime="2017-07-01T15:32:15.000Z" itemprop="datePublished">2017-07-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>FCGI虽然是上个世纪的东西，但是缺了还真不行。在FCGI的编译安装方面Google都无法找到相关笔记文档。在经历了一下午的折磨后，才安装上了。我觉得应该写成笔记，帮助更多人少走弯路。</p>
+<p>FCGI存在与epel和Ubuntu等源里，因此，大多数设备都能无痛安装。</p>
+<p>但由于我的是CentOS armv7版的操作系统，不可能使用epel源，由于FCGI缺乏维护，所以在编译过程中，走了很多弯路。</p>
+<p>nginx的安装查看我的上一篇博客的nginx安装部分即可。</p>
+<p>首先我们来搞清楚一下，CGI相关的原理，如何编写相关脚本，以及使用这套组合的意义。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a>
+        
+          <p class="article-more-link">
+            <a href="/post/fcgi/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/fcgi/" data-id="cj7alywls000v6s7apz00f7f6" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/fcgi/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Kali-raspberry" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Kali-raspberry/" class="article-date">
+  <time datetime="2017-06-25T15:57:00.000Z" itemprop="datePublished">2017-06-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个偶然的时刻，我发现某个地方的IP是开放80和443端口的，那如果不好好利用一下简直太可惜了。当然，人家可是良民，当然会遵守国家的法律法规啦，那废话就不多说了。</p>
+<p>小插曲：好久不用raspbian了，刷好镜像通电后才知道raspbian已经在一年前就已经默认关闭了ssh，没ssh那玩个鬼。</p>
+<p>索性放弃raspbian，那么目前有Ubuntu Mate，Kali OS，Arch Linux三个系统供我选择，Ubuntu Mate也是需要通过显示器设定，故放弃；Arch Linux arm安装需要用到linux的机子；所以选择了Kali OS。<br>
+        
+          <p class="article-more-link">
+            <a href="/post/Kali-raspberry/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Kali-raspberry/" data-id="cj7alywlg000k6s7aa8wirt6t" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Kali-raspberry/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-HBUT-2ACM" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/HBUT-2ACM/" class="article-date">
+  <time datetime="2017-05-28T01:32:15.000Z" itemprop="datePublished">2017-05-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>恩，菜鸡和大佬之间的差距不是一天两天能追上的，当然思路正确写不出来是不可原谅的。。。。。。总之，很丢人orz</p>
+<p>虽然都是大部分是水题，但是还是把这部分分享出来吧w</p>
+<p>拿自己的和标程对比，人家的就是写的就是清爽漂亮，哎。。。</p>
+        
+          <p class="article-more-link">
+            <a href="/post/HBUT-2ACM/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/HBUT-2ACM/" data-id="cj7alywlc000g6s7aqt4uf9pc" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/HBUT-2ACM/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-react-express" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/react-express/" class="article-date">
+  <time datetime="2017-05-11T06:03:00.000Z" itemprop="datePublished">2017-05-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/react-express/">React与Express项目前后端一体化实战</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在之前的造轮子的过程中，前后端分离开来写实在蛋疼，所以最近决定研究并折腾一下前后端工程一体化。</p>
+<p>在这样的实时的环境中，最重要的是做好前后端之间的协调作用，说白了，也就是路径规划问题与热刷新问题。</p>
+<p>在我的项目中，我选择开发和生产的环境的加载代码制作两份，只有模板，中间件什么的代码的通用。(网上推崇使用env变量来加载热更新组件，但是本人并不推崇全部使用env)</p>
+<p>主要就是分析几项内容，除了工程的路径规划，一是开发代码(app.js)，二是生产代码(server.js)，最后还有模板引擎的调整</p>
+        
+          <p class="article-more-link">
+            <a href="/post/react-express/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/react-express/" data-id="cj7alywm900166s7adywgvned" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/react-express/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-npm-check" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/npm-check/" class="article-date">
+  <time datetime="2017-04-16T07:57:00.000Z" itemprop="datePublished">2017-04-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>很多做node.js开发的小伙伴呢都遇到这样一个问题：我全局安装的脚手架，如何升级。或者，我某个项目里，很多组件都大幅更新了，增加了很多好用的新特性，我该如何去升级我所想升级的组件呢。常规使用的npm update呢，又不是很好用。偶然发现了这个好用的工具，分享给大家。</p>
+<p>首先安装 <code>sudo npm install npm-check -g</code></p>
+<p>然后，你就可以在该项目执行<code>npm-check</code>即可查看该项目下的依赖情况和新版的依赖情况，emoji表情意外萌呢~</p>
+<p>它还会检测你在工程里import进的依赖，没有用到的依赖还会提示你去移除它。提示非常丰富。</p>
+<p>// 分割线，首页不放图o(<em>////▽////</em>)q<br>
+        
+          <p class="article-more-link">
+            <a href="/post/npm-check/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/npm-check/" data-id="cj7alywm800156s7a6o4rjk4i" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/npm-check/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-docker_cn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/docker_cn/" class="article-date">
+  <time datetime="2017-03-21T14:22:00.000Z" itemprop="datePublished">2017-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/docker_cn/">在墙内部署docker镜像的正确姿势</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="说换镜像什么的都是扯淡，根本无法好好使用。"><a href="#说换镜像什么的都是扯淡，根本无法好好使用。" class="headerlink" title="说换镜像什么的都是扯淡，根本无法好好使用。"></a>说换镜像什么的都是扯淡，根本无法好好使用。</h4><p>本文将会告诉你在墙内部署docker应用的正确姿势。</p>
+<h4 id="本文基于Ubuntu-16-04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。"><a href="#本文基于Ubuntu-16-04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。" class="headerlink" title="本文基于Ubuntu 16.04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。"></a>本文基于Ubuntu 16.04测试环境，大部分具有systemctl的系统都同样可行，适用于物理服务器和云服务器。</h4><p>如果你的环境是aliyun ecs请前往<code>/etc/apt/source.list</code>里把所有mirrors.aliyuncs.com的镜像注释掉！</p>
+<p>检查内核是否需要升级 <code>uname -a</code>查看，大于3.16即可。如果小于3.16，可以按照这篇教程换掉你的内核并提升你的服务器性能: <a href="https://emiria.io/post/TCP-BBR/" target="_blank" rel="external">https://emiria.io/post/TCP-BBR/</a></p>
+<h4 id="接下来是具体步骤。"><a href="#接下来是具体步骤。" class="headerlink" title="接下来是具体步骤。"></a>接下来是具体步骤。</h4>
+        
+          <p class="article-more-link">
+            <a href="/post/docker_cn/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/docker_cn/" data-id="cj7alywlq000t6s7ali54trht" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/docker_cn/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-DellR410-BIOS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/DellR410-BIOS/" class="article-date">
+  <time datetime="2017-03-03T15:10:00.000Z" itemprop="datePublished">2017-03-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/DellR410-BIOS/">Dell R410服务器踩坑总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翘了大学语文课去机房上架服务器被语文老师抓到，这种事情一定是终生难忘的（哭）。</p>
+<p>好了，以下来介绍所踩的坑。</p>
+<p>某202.xxx.xxx.xxx/28的ip是我们社团的服务器所使用，但由于年久失修，宕了只有一台了orz，于是fix的这个任务就落到了我的头上了orz。</p>
+<p>由于是接手的，只留下了一个记录了密码和用户名什么的文档来，只能靠自己摸索，架构是多台Apache+php环境组成的集群和一台数据库服务器组成，具体配置无法测试（基本的命令都缺失，有必要全部重做系统了），内网带宽实测100mbps。但数据库服务器的raid早已坏掉，各种丢数据，唯一剩下来的一台也不敢动，于是，只能贡献出我自己的R410了。</p>
+<p>R410的网卡是博通一种服务器网卡，很可惜Debian初始并不带网卡驱动，需要后续在没网的情况下手动安装，故舍弃Debian。Ubuntu 16.04.2 LTS在写入系统时又发生失败。centos才是最适合R410的系统orz。</p>
+<p>R410集成了非常强大的BIOS和远控卡，然而正是强大，导致了使用不是很方便，个人非常不推荐使用UEFI引导，而且也非常不好用。<br>在不小心按了F10进入了UEFI后，你将会经历漫长的等待，看着<code>Initializing UEFI,Please wait...</code>(&gt;=1hr)，而且极有可能加载失败。所以我们要做的就是，关闭电源，再开启电源，加载完BIOS后迅速按下Ctrl 和E键，进入菜单，进入System Services选项菜单里并把它关掉。保存退出，继续加载bios的过程中再去F11里选择u盘启动。</p>
+<p>安装完centos后有个非常恶心的阅读协议，这个只能Good luck了。在实际上架服务器中，我们不可能使用DHCP协议获取ip，只能手动配置ip，在参考另外一台服务器的配置文件后顺利完成了ip的配置，其实图形化界面下的centos配置防火墙很容易23333333</p>
+<p>PS：机房老师中途进来看到raid的配置和机器上4个盘位只插了一块盘有点想笑，我能怎么办，我也没钱买硬盘哇(╯‵□′)╯︵┻━┻</p>
+        
+          <p class="article-more-link">
+            <a href="/post/DellR410-BIOS/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/DellR410-BIOS/" data-id="cj7alywla000e6s7a9a1cnyay" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/DellR410-BIOS/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Omega2-Getstart" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/Omega2-Getstart/" class="article-date">
+  <time datetime="2017-02-10T19:24:00.000Z" itemprop="datePublished">2017-02-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/Omega2-Getstart/">Omega2Plus上手体验</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>好吧，我相信这是国内首发上手测评 #(手动滑稽)</p>
+<p>Omega2是onion公司搞出的一款超迷你的IOT设备，体积非常迷你，12月参与的众筹，春节后收到的东西（顺丰发货好评）。</p>
+<p>这款东西最大的特色是小而丰富，而且价格便宜，标准版5$，Plus版是9$，我参与的呢是plus版。</p>
+<p>先来几张低清有码</p>
+<p><img src="/img/Omega2-1.JPG" alt=""></p>
+        
+          <p class="article-more-link">
+            <a href="/post/Omega2-Getstart/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/Omega2-Getstart/" data-id="cj7alywlj000n6s7aptjz0bi0" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/Omega2-Getstart/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-first-learning-react-experience" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/first-learning-react-experience/" class="article-date">
+  <time datetime="2017-02-08T07:57:00.000Z" itemprop="datePublished">2017-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/first-learning-react-experience/">React.js折腾小计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我不会告诉你这篇文章是折腾了ng1，vue，react三大框架之后才写的QvQ</p>
+<p>好了废话不多说了，为什么我会跳入这个坑，最早是因为在express框架中，注册表单在用户填写后得通过post请求传回到后端再写入数据库，然而又不想碰jQuery这个东西，所以想到了用目前流行想这些框架。</p>
+<p>一开始是用ng1，然后根据phonecat的教程构建出了应用，然而也用了原始的方法，一个angular.js一个angular-router.js再加一个app.js实现的。<br>当然这样被 <a href="http://blog.zhangrgk.ninja" target="_blank" rel="external">锐神</a>等dalao吐槽了，于是乎尝试锐神他们较为推荐的vue来构建，但是vue虽然轻量，但是在模板实现上，以及子父绑定上并不友好，并且vue的社区支持并不友好，对于新手来学习上手并不友好，没有手把手的案例来教你做应用，即使，vue推出了vue-cli这个东西，然而，由于太多报错不知道如何解决，故放弃，最后采用了react实现了项目，并熟悉了webpack打包模式。</p>
+<p>这个项目呢，是一个不依托后端程序的单页应用，（导航站），为什么不直接写死html呢，废话！当然是为了便于维护(╯‵□′)╯︵┻━┻，同时也是为了后期升级做打算，因为，未来打算做成一个综合门户，页眉页脚直接写死html，到content里在调用react形成app，content目前只是通过几个路由，每个路由下get一个json，列出导航条目，后期的话，把菜单导航升级成二级的，就可以调用比如论坛等的api实现一个综合门户。</p>
+<p>react的hash路由系统默认会抛出一个 “? k=xxxxx”的东西，google一圈，so上有大佬解释说这是为了方便判断什么时候点的某个链接，也有相应的隐藏的解决方案。<br>但是窝不打算隐藏，url嘛，总要带些 &amp;?_ 什么的才有逼格嘛2333333。</p>
+<p>webpack打包模式非常赞，尽管他给我打包出个32k行的js…，但webpack用得不是特别熟悉的情况下，不要乱import进css。（包括我<em>(:з」∠)</em> ）</p>
+<p>react目前才学习了冰山一角，开学后继续学习，该应用也很快将会上线，下一篇博文会写一下该应用的实现ovo。</p>
+<p>PS：jsx的写法实在太赞了！另外webpack -p后不要在编辑器里乱点编译好的js（。别问我为什么Orz）</p>
+        
+          <p class="article-more-link">
+            <a href="/post/first-learning-react-experience/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/first-learning-react-experience/" data-id="cj7alywm2000x6s7aey9udskt" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/first-learning-react-experience/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-WelcomeTo2017" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/post/WelcomeTo2017/" class="article-date">
+  <time datetime="2016-12-31T16:00:00.000Z" itemprop="datePublished">2017-01-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/WelcomeTo2017/">你好2017</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>欢迎2017的到来，祝大家新年快乐o(* ≧▽≦)ツ</p>
+<p>在2016这段时间里，我没什么拿得出手的东西，博客更新慢了许多，主要还是没有多少时间来折腾。<br>花了大量时间应付高数和英语，却没取得什么成绩，险些挂科，花在计算机上的时间也不多，除了学习到了很多c语言的知识外，也学了一些nodejs，尝试使用express框架写了些东西，也学到了一些关于jQuery的知识，但离生产还差得很远很远，感觉有些迷茫。<br>当然，我也结识一些dalao朋友，通过交流讨论学到了很多。</p>
+<p>2017，一起加油吧！<br>
+        
+          <p class="article-more-link">
+            <a href="/post/WelcomeTo2017/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://emiria.io/post/WelcomeTo2017/" data-id="cj7alywln000r6s7a77yh0qfo" class="article-share-link">Share</a>
+      
+        <a href="https://emiria.io/post/WelcomeTo2017/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/树莓派/">树莓派</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/黑科技/">黑科技</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/post/fcgi/">Nginx+FCGI编译安装+TCL/C++/shell的学习/安装调教</a>
+          </li>
+        
+          <li>
+            <a href="/post/Kali-raspberry/">Kali在树莓派上的调教笔记</a>
+          </li>
+        
+          <li>
+            <a href="/post/HBUT-2ACM/">HBUT 2nd ACM Contest</a>
+          </li>
+        
+          <li>
+            <a href="/post/react-express/">React与Express项目前后端一体化实战</a>
+          </li>
+        
+          <li>
+            <a href="/post/npm-check/">一个非常好用的npm包管理工具npm-check</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hiroya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'alleysakura';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
